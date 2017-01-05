@@ -3,3 +3,11 @@
   background: -webkit-linear-gradient(to left, #8E0E00 , #1F1C18); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #8E0E00 , #1F1C18); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+@mixin alert ($background-color, $border-color, $color) {
+  text-align: center;
+  background: $background-color;
+  border-color: $border-color;
+  margin-top: -14px;
+  color: $color;
+}
