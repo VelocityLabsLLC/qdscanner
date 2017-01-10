@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105172002) do
+ActiveRecord::Schema.define(version: 20170110150409) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -18,6 +18,35 @@ ActiveRecord::Schema.define(version: 20170105172002) do
     t.text     "comments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.string   "member_type",     null: false
+    t.integer  "member_id",       null: false
+    t.string   "group_type"
+    t.integer  "group_id"
+    t.string   "group_name"
+    t.string   "membership_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["group_name"], name: "index_group_memberships_on_group_name"
+    t.index ["group_type", "group_id"], name: "index_group_memberships_on_group_type_and_group_id"
+    t.index ["member_type", "member_id"], name: "index_group_memberships_on_member_type_and_member_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "user_group_id"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.string   "token"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "plans", force: :cascade do |t|

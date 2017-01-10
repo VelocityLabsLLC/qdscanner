@@ -8,3 +8,5 @@
 
 Plan.create(name: 'basic', price: 0)
 Plan.create(name: 'pro', price: 10)
+
+#user = User.create! :name => 'John Doe', :email => 'john@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'

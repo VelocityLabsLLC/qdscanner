@@ -9,4 +9,7 @@ Rails.application.routes.draw do
     resource :profile
   end
   
+  resources :invites
+  get 'invite', to: 'group_membership#edit'
+  resources :groups
 end

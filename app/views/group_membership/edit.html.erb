@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for @invite , :url => invites_path do |f| %>
+        <%= f.hidden_field :user_group_id, :value => @invite.user_group_id %>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+        <%= f.submit 'Send' %>
+      <% end %>
+    </div>
+  </div>
+</div>

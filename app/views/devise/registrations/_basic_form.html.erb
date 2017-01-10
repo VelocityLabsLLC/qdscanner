@@ -2,6 +2,9 @@
   <%= devise_error_messages! %>
   
   <%= hidden_field_tag 'plan', params[:plan] %>
+  <% if @token != nil %>
+    <%= hidden_field_tag :invite_token, @token %>
+  <% end %>
   <div class="field form-group">
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, class: 'form-control' %>

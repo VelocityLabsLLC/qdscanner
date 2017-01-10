@@ -5,7 +5,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-         
+  
+  #Groupify  model 
+  groupify :group_member
+  groupify :named_group_member
+  
+  # Invitations:
+  has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
+  has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
+
   attr_accessor :stripe_card_token
   # IF Pro user passes validations (email, password, etc.),
   # then call Stripe and tell Stripe to set up a subscription
