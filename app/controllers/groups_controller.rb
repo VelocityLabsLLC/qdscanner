@@ -34,7 +34,7 @@ class GroupsController < ApplicationController
     #Check it user is already in group
     #if !@group.users.find(@user)
     @group.add(@user)
-    #If user is not in group return error
+    #If user is already in group return error
     #end
   end
   
