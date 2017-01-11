@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1 class="text-center">Researchers in Group <strong><%=@group.name%></strong></h1>
+      <p class="text-center">All created research groups.</p>
+      <ul class="list-unstyled">
+        <% @users.each do |user| %>
+          <li>
+            <div class="well row <%= cycle('white-bg','') %>">
+              <% if user==@owner %>
+                <h2>Owner</h2>
+              <% end %>
+              <h3><%= user.email %></h3>
+            </div>
+          </li>
+        <% end %>
+        <%= link_to "Join Group", group_path(:id => @group.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,18 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  
+  # Set up devise mailing
+  config.action_mailer.default_url_options =   { :host => 'murmuring-river-42668.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: "smtp.gmail.com",
+      port: 587,
+      authentication: "plain",
+      enable_starttls_auto: true,
+      user_name: "your_email@gmail.com",
+      password: "your_password" 
 
+  }
   # Code is not reloaded between requests.
   config.cache_classes = true
 

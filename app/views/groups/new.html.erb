@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for @group , :url => groups_path do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :description %>
+          <%= f.text_field :description, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :organization %>
+          <div class="input-group">
+            <%= f.select :organization, Organization.pluck(:name), {}, class: 'form-control' %>
+            <span class="input-group-btn">
+              <%= link_to "Create Organization", new_organization_path, class: 'btn btn-primary' %>
+            </span>
+          </div>
+        </div>
+        <%= f.submit 'Create Group', class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
+</div>

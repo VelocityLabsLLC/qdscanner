@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     resource :profile
   end
   
+  resources :groups
+  resources :organizations
 end
