@@ -6,7 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Plan.create(name: 'basic', price: 0)
-Plan.create(name: 'pro', price: 10)
+Plan.create(name: 'basic', price: 0) unless Plan.find_by(name: 'basic')
+Plan.create(name: 'group', price: 10) unless Plan.find_by(name: 'group')
+Plan.create(name: 'pro', price: 100) unless Plan.find_by(name: 'pro')
 
-Organization.create(name: 'None', owner_id: 0)
+Organization.create(name: 'None', owner_id: 0) unless Organization.find_by(name: 'None')

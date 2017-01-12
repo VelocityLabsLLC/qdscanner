@@ -13,6 +13,30 @@
   margin-top: 30px;
 }
 
+.home-plan-chart {
+  table {
+    th, td {
+      text-align: center;
+    }
+    td:first-child {
+      background-color: #7F7E7A;
+      opacity: 0.5;
+    }
+    td:nth-child(2) {
+      background-color: #E60003;
+      opacity: 0.3;
+    }
+    td:nth-child(3) {
+      background-color: #E60003;
+      opacity: 0.6;
+    }
+    td:nth-child(4) {
+      background-color: #E60003;
+      opacity: 1.0;
+    }
+  }
+}
+
 //About Page Styles
 
 .about-callout {

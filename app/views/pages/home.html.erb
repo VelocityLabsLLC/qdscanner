@@ -1,6 +1,8 @@
-<div class="home-callout text-center container-fluid">
-  <h1>Welcome to Velocity Laboratories</h1>
-  <h3>Helping out clients bring new pain relieving medicines to market sooner through innovative and accelerated preclinical testing.</h3>
+<div class="home-callout container-fluid">
+  <div class="container text-center">
+    <h1>Welcome to Velocity Laboratories</h1>
+    <h3>Helping out clients bring new pain relieving medicines to market sooner through innovative and accelerated preclinical testing.</h3>
+  </div>
 </div>
 <div class="container home-signup-links">
   <div class="row">
@@ -25,21 +27,106 @@
         </div>
       </div>
     <% else %>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="well">
           <h2 class="text-center">Basic Membership</h2>
           <h4 class="text-center">Sign up for free to purchase products or join existing groups.</h4>
           <br/>
           <%= link_to "Sign up with Basic", new_user_registration_path(plan: @basic_plan.id), class: 'btn btn-primary btn-lg btn-block' %>
+          <br/>
+          <ul>
+            <li>Purchase items in shop</li>
+            <li>Join existing groups and organizations</li>
+          </ul>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
+        <div class="well">
+          <h2 class="text-center">Premium Membership</h2>
+          <h4 class="text-center">Sign up for the premium account to create a group ($10/month).</h4>
+          <br/>
+          <%= link_to "Sign up with Premium", new_user_registration_path(plan: @group_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+          <br/>
+          <ul>
+            <li>Purchase items in shop</li>
+            <li>Create a small group</li>
+            <li>Regulate user access</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
         <div class="well">
           <h2 class="text-center">Pro Membership</h2>
-          <h4 class="text-center">Sign up for the pro account to create a group.</h4>
+          <h4 class="text-center">Sign up for the organization account to create an organization ($100/month).</h4>
+          <br/>
           <%= link_to "Sign up with Pro", new_user_registration_path(plan: @pro_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+          <br/>
+          <ul>
+            <li>Purchase items in shop</li>
+            <li>Create an organization</li>
+            <li>Unlimited groups within organization</li>
+            <li>Regulate group access to other groups within organization</li>
+          </ul>
         </div>
       </div>
     <% end %>
+  </div>
+</div>
+<div class="container home-plan-chart">
+  <div class="row">
+    <div class="col-md-6 col-offset-3">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Basic</th>
+            <th>Premium</th>
+            <th>Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Shop</td>
+            <td><i class='fa fa-check'></i></td>
+            <td><i class='fa fa-check'></i></td>
+            <td><i class='fa fa-check'></i></td>
+          </tr>
+          <tr>
+            <td>Join Group/Organizations</td>
+            <td><i class='fa fa-check'></i></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h2>Table</h2>
+  <p>The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:</p>                                                                                      
+  <div class="table-responsive">          
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>City</th>
+        <th>Country</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="success">1</td>
+        <td class="danger">Anna</td>
+        <td>Pitt</td>
+        <td>35</td>
+        <td>New York</td>
+        <td>USA</td>
+      </tr>
+    </tbody>
+  </table>
   </div>
 </div>
