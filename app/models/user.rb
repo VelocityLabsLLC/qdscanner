@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
   belongs_to :plan
   has_one :profile
   

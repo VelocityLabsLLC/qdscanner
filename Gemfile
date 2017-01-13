@@ -45,6 +45,12 @@ gem 'figaro', '1.1.1'
 # Use Paperclip for image upload
 #gem 'paperclip', '4.3.6'
 
+# Use cancancan for permissions
+gem 'cancancan'
+
+# Use rolify for authorization
+gem 'rolify'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
