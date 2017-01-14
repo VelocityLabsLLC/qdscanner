@@ -18,7 +18,8 @@ class GroupsController < ApplicationController
     @group.description = params[:group][:description]
     @group.organization_id = org_id
     @group.owner_id=current_user.id
-    
+    # May have to manually add the membership has_many :through relationship
+    # @group.memberships.create(:user => current_user)
     if @group.save
       if current_user.plan_id==2
         current_user.remove_role("group_creator")

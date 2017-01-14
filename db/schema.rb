@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113171843) do
+ActiveRecord::Schema.define(version: 20170114131015) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20170113171843) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "group_roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["name", "resource_type", "resource_id"], name: "index_group_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_group_roles_on_name"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -27,6 +37,12 @@ ActiveRecord::Schema.define(version: 20170113171843) do
     t.integer  "organization_id", default: 0
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "groups_group_roles", id: false, force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "group_role_id"
+    t.index ["group_id", "group_role_id"], name: "index_groups_group_roles_on_group_id_and_group_role_id"
   end
 
   create_table "memberships", force: :cascade do |t|
