@@ -5,14 +5,28 @@ class Ability
     if user.has_role? :group_admin
       can :manage, :group
     else
-      can :read, :all
+      can :read, :group
     end
     
-    if user.has_role? :org_admin
+    if user.has_role? :organization_admin
+      can :manage, :organization
+    else
+      can :read, :organization
+    end
+  end
+  def initialize(group)
+    if group.has_role? :organization_admins
+      can :manage, :group
+    else
+      can :read, :group
+    end
+    
+    if group.has_role? :org_admin
       can :manage, :organization
     else
       can :read, :all
     end
+  end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -39,5 +53,5 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-  end
+  
 end

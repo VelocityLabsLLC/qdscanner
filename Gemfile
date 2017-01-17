@@ -64,6 +64,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '2.0.0'
+  # Rails-erd is used to visualize model/schema associations
+  gem "rails-erd"
 end
 group :production do
   # Use the PostgreSQL gem for Heroku production servers

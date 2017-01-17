@@ -5,7 +5,8 @@ class User < ApplicationRecord
   
   has_many :memberships
   has_many :groups, through: :memberships
-
+  
+  #has_many :animals
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
