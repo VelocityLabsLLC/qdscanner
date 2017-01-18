@@ -15,10 +15,12 @@
       </div>
       <div class="well">
         <h2>Sign up</h2>
-        <% if params[:plan] == '2' %>
-          <%= render "pro_form" %>
-        <% else %>
+        <% if params[:plan] == '1' %>
           <%= render "basic_form" %>
+        <% elsif params[:plan] == '2' %>
+          <%= render "group_form" %>
+        <% else %>  
+          <%= render "pro_form" %>
         <% end %>
         <%= render "devise/shared/links" %>
       </div>
