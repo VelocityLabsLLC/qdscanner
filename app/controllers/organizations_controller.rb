@@ -1,18 +1,20 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
+  before_action :can_create_organization?, only: :new
   
   def index
-    @orgs=Organization.where.not(owner_id: 0)
+    @organizations=Organization.where.not(owner_id: 0)
   end
     
   def new
-    @org=Organization.new
+    @organization=Organization.new
   end
   
   def create
-    @org=Organization.new(organization_params)
-    @org.owner_id=current_user.id
-    if @org.save
+    @organization=Organization.new(organization_params)
+    @organization.owner_id=current_user.id
+    if @organization.save
       flash[:success] = "Organization created!"
       redirect_to organizations_path
     else
@@ -21,7 +23,7 @@ class OrganizationsController < ApplicationController
   end
   
   def show
-    @org = Organization.find( params[:id] )
+    @organization = Organization.find( params[:id] )
     @groups = @org.groups
     @owner = User.find_by(id: @org.owner_id)
   end
@@ -33,5 +35,22 @@ class OrganizationsController < ApplicationController
   private
     def organization_params
       params.require(:organization).permit(:name)
+    end
+    
+    def over_organization_creation_limit?
+      num_groups=Organization.find_roles(:organization_creator, current_user).count
+      return !(num_groups<1)
+    end
+    
+    def can_create_organization?
+      if current_user.plan_id==3
+        if over_organization_creation_limit?
+          flash[:notice] = 'You have reached your organization creation limit!'
+          redirect_to(root_url)
+        end
+      else
+        flash[:notice] = 'Upgrade plan to create an organization!'
+        redirect_to(plans_path)
+      end
     end
 end

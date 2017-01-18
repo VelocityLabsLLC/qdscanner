@@ -5,39 +5,40 @@ class Ability
     
     user ||= User.new # guest user (not logged in)
     
-    alias_action :create, :read, :update, :destroy to: :cru
+    alias_action :create, :read, :update, :destroy, to: :crud
+    
     if user.has_role? :group_creator
-      can :manage, Group
-    elsif user.has_role? :group_admin
-      can :manage, :group
-      cannot :create
-    elsif user.has_role? :group_editor
-      can :crud, :group
-      cannot :destroy, :group
+      can :create, Group
+    elsif user.has_role? (:creator, Group)
+      can :manage, Group, owner_id: user.id
+    elsif user.has_role? (:admin, Group)
+      can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
     else
-      can :read, :group
+      can :read, Group
     end
     
     if user.has_role? :organization_creator
-      can :manage, :organization
-    if user.has_role? :organization_admin
-      can :manage, :organization
+      can :create, Organization
+    if user.has_role? (:creator, Organization)
+      can :manage, Organization, owner_id: user.id
+    elsif user.has_role? (:admin, Organization)
+      can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
     else
-      can :read, :organization
+      can :read, Organization
     end
   end
+  
   def initialize(group)
     user ||= Group.new # guest group??
     
     alias_action :create, :read, :update, :destroy, to: :crud
     
     if group.has_role? :admin
-      can :crud, :organization
-      cannot :destroy
-    elsif group.has_role? :organization_admin
-      can :manage, :organization
-    elsif group.has_role? :
-      can :read, :organization
+      # can :read, Animal, within organization
+    elsif group.has_role? :vet
+      # can :read, Animal, within organization
+    else
+      # can :read, Animal, within group
     end
   end
   # Define abilities for the passed in user here. For example:

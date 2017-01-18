@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_can_create_group, only: :new
+  load_and_authorize_resource
+  before_action :can_create_group?, only: :new
   
   def index
     @groups = Group.all
@@ -21,9 +22,6 @@ class GroupsController < ApplicationController
     # May have to manually add the membership has_many :through relationship
     # @group.memberships.create(:user => current_user)
     if @group.save
-      if current_user.plan_id==2
-        current_user.remove_role("group_creator")
-      end
       current_user.add_role("admin", @group)
       current_user.add_role("creator", @group)
       flash[:success] = "Group created!"
@@ -55,22 +53,36 @@ class GroupsController < ApplicationController
       params.require(:group).permit(:name, :description, :organization)
     end
     
-    def check_create_group_limit
-      group_limit=1
-      num_groups=Group.find_roles(:group_creator, user).count
-      return num_groups<group_limit
+    def over_group_creation_limit?
+      num_groups=Group.find_roles(:group_creator, current_user).count
+      return !(num_groups<current_user.group_creation_limit)
     end
     
-    def check_can_create_group
+    def can_create_group?
       if current_user.plan_id==1
-        unless current_user.has_role? :group_creator
-          flash[:notice] = 'You must upgrade plan to create more groups!'
-          redirect_to(plans_path)
+        if current_user.has_role? :group_creator
+          if over_group_creation_limit?
+            flash[:notice] = 'You have reached the group creation limit set by your organization!'
+            redirect_to(root_url)
+          end
+        else
+          if current_user.organizations
+            flash[:notice] = 'You do not have access to group creation in this organization!'
+            redirect_to(plans_path)
+          else
+            flash[:notice] = 'You must upgrade plan to create more groups!'
+            redirect_to(plans_path)
+          end
         end
       elsif current_user.plan_id==2
-        unless check_create_group_limit
+        if over_group_creation_limit?
           flash[:notice] = 'You have reached your group creation limit, upgrade plan to create more groups!'
-        redirect_to(plans_path)
+          redirect_to(plans_path)
+        end
+      else
+        if over_group_creation_limit?
+          flash[:notice] = 'You have reached your group creation limit, upgrade plan to create more groups!'
+          redirect_to(plans_path)
         end
       end
     end
