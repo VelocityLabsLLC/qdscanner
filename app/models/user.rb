@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   rolify
+  after_create :assign_default_role
   belongs_to :plan
   has_one :profile
   
@@ -25,6 +26,10 @@ class User < ApplicationRecord
       self.stripe_customer_token = customer.id
       save!
     end
+  end
+  
+  def assign_default_role
+    self.add_role(:newuser) if self.roles.blank?
   end
   
 end
