@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1 class="text-center">Groups in Organization <strong><%=@org.name%></strong></h1>
+      <h1 class="text-center">Groups in Organization <strong><%=@organization.name%></strong></h1>
       <ul class="list-unstyled">
         <% @groups.each do |group| %>
           <li>
@@ -13,7 +13,7 @@
             </div>
           </li>
         <% end %>
-        <%= link_to "Add group to organization", organization_path(:id => @org.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <%= link_to "Add group to organization", organization_path(:id => @organization.id), :method => :put, class: 'btn btn-primary btn-lg' %>
       </ul>
     </div>
   </div>

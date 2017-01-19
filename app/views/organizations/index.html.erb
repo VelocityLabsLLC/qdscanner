@@ -4,11 +4,11 @@
       <h1 class="text-center">Organizations</h1>
       <p class="text-center">All Created Organizations.</p>
       <ul class="list-unstyled">
-        <% @orgs.each do |org| %>
+        <% @organizations.each do |organization| %>
           <li>
             <div class="well row <%= cycle('white-bg','') %>">
-              <%= link_to org do %>
-                <h2><%= org.name %></h2>
+              <%= link_to organization do %>
+                <h2><%= organization.name %></h2>
               <% end %>
             </div>
           </li>

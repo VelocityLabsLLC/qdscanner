@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118175808) do
+ActiveRecord::Schema.define(version: 20170119153520) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -105,7 +105,9 @@ ActiveRecord::Schema.define(version: 20170118175808) do
     t.integer  "plan_id"
     t.string   "stripe_customer_token"
     t.integer  "group_creation_limit"
+    t.integer  "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

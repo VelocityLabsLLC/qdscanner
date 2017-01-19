@@ -1,10 +1,10 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :user
   before_action :can_create_organization?, only: :new
   
   def index
-    @organizations=Organization.where.not(owner_id: 0)
+    #@organizations=Organization.where.not(owner_id: 0)
   end
     
   def new

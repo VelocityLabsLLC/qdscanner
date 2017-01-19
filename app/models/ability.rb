@@ -9,9 +9,9 @@ class Ability
     
     if user.has_role? :group_creator
       can :create, Group
-    elsif user.has_role? (:creator, Group)
+    elsif user.has_role?(:creator, Group)
       can :manage, Group, owner_id: user.id
-    elsif user.has_role? (:admin, Group)
+    elsif user.has_role?(:admin, Group)
       can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
     else
       can :read, Group
@@ -19,12 +19,12 @@ class Ability
     
     if user.has_role? :organization_creator
       can :create, Organization
-    if user.has_role? (:creator, Organization)
-      can :manage, Organization, owner_id: user.id
-    elsif user.has_role? (:admin, Organization)
-      can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
-    else
-      can :read, Organization
+    # elsif user.has_role?(:creator, Organization)
+    #   can :manage, Organization, owner_id: user.id
+    # elsif user.has_role?(:admin, Organization)
+    #   can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
+    # else
+    #   can :read, Organization
     end
   end
   
