@@ -11,6 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         if resource.plan_id == 3
           resource.group_creation_limit=100
           resource.add_role :organization_creator
+          resource.add_role :group_creator
           resource.save_with_subscription
         elsif resource.plan_id == 2
           resource.add_role :group_creator

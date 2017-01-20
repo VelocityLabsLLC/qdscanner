@@ -1,0 +1,9 @@
+          <div class="form-group">
+            <%= f.label :organization_id %>
+            <div class="input-group">
+              <%= f.select :organization_id, Organization.pluck(:name), {}, class: 'form-control' %>
+              <span class="input-group-btn">
+                <%= link_to "Create Organization", new_organization_path, class: 'btn btn-primary' %>
+              </span>
+            </div>
+          </div>

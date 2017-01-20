@@ -120,7 +120,15 @@
 </div>
 <div>
   <h1>has role organization_creator</h1>
-  <%= current_user.has_role? :organization_creator%>
+  <% if user_signed_in? %>
+    <%= current_user.has_role? :organization_creator%>
+  <% else %>
+    <p>Not signed in</p>
+  <% end %>
   <h1>can create organization</h1>
   <%= can? :create, Organization %>
+  <h1>can read organization</h1>
+  <%= can? :read, Organization %>
+  <h1>can read organizations/5</h1>
+  <%= can? :read, Organization.find(5) %>
 </div>

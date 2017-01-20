@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <%= form_for @group , :url => groups_path do |f| %>
+        <%= hidden_field_tag :owner_id, current_user.id %>
         <div class="form-group">
           <%= f.label :name %>
           <%= f.text_field :name, class: 'form-control' %>
@@ -10,17 +11,24 @@
           <%= f.label :description %>
           <%= f.text_field :description, class: 'form-control' %>
         </div>
-        <div class="form-group">
-          <%= f.label :organization %>
-          <div class="input-group">
-            <%= f.select :organization, Organization.pluck(:name), {}, class: 'form-control' %>
-            <span class="input-group-btn">
-              <%= link_to "Create Organization", new_organization_path, class: 'btn btn-primary' %>
-            </span>
+        <% unless false #current_user.organization %>
+          <div class="form-group">
+            <%= f.label :organization_id %>
+            <div class="input-group">
+
+              <%= select_tag :organization_id, options_from_collection_for_select(@organizations, :id, :name), prompt: "Select something", class: 'form-control' %>
+              <span class="input-group-btn">
+                <%= link_to "Create Organization", new_organization_path, class: 'btn btn-primary' %>
+              </span>
+            </div>
           </div>
-        </div>
+        <% end %>
         <%= f.submit 'Create Group', class: 'btn btn-success' %>
       <% end %>
     </div>
   </div>
 </div>
+
+<ul>
+
+</ul>

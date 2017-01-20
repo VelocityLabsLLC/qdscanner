@@ -13,7 +13,7 @@
             </div>
           </li>
         <% end %>
-        <%= link_to "Add group to organization", organization_path(:id => @organization.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <%= link_to "Add/remove groups in organization", edit_organization_path(:id => @organization.id), :method => :put, class: 'btn btn-primary btn-lg' %>
       </ul>
     </div>
   </div>

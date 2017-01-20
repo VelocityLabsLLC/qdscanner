@@ -4,26 +4,32 @@ class GroupsController < ApplicationController
   before_action :can_create_group?, only: :new
   
   def index
-    @groups = Group.all
+    if current_user.organization
+      @groups = current_user.organization.groups
+    end
   end
   
   def new
     #@group = Group.new
+    @organizations=Organization.all
   end
   
   # POST to /groups
   def create
-    org_id=Organization.find_by(name: params[:group][:organization]).id
-    @group = Group.new
-    @group.name = params[:group][:name]
-    @group.description = params[:group][:description]
-    @group.organization_id = org_id
-    @group.owner_id=current_user.id
+    #org_id=Organization.find_by(name: params[:group][:organization]).id
+    #@group = Group.new
+    #@group.name = params[:group][:name]
+    #@group.description = params[:group][:description]
+    #@group.organization_id = org_id
+    #@group.owner_id=current_user.id
     # May have to manually add the membership has_many :through relationship
     # @group.memberships.create(:user => current_user)
+    @user = User.find( params[:owner_id] )
+    @organization = Organization.find( params[:organization_id] )
+    # try @user.build_group(something else here)
+    @group = @organization.build_group(group_params)
     if @group.save
-      current_user.add_role("admin", @group)
-      current_user.add_role("creator", @group)
+      @user.add_role("creator", @group)
       flash[:success] = "Group created!"
       redirect_to group_path
     else
@@ -50,7 +56,7 @@ class GroupsController < ApplicationController
   
   private
     def group_params
-      params.require(:group).permit(:name, :description, :organization)
+      params.require(:group).permit(:name, :description, :organization_id, :owner_id)
     end
     
     def over_group_creation_limit?

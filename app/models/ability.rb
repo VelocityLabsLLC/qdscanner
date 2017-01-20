@@ -9,39 +9,55 @@ class Ability
     
     if user.has_role? :group_creator
       can :create, Group
-    elsif user.has_role?(:creator, Group)
+      # This would enable only reading of Group new action!
+      #can :read, Group.new
+      can :read, Group.new
+    end
+    
+    #user.groups.each do |group|
+    if user.has_role?(:creator, Group)
+      # Manage his own group
       can :manage, Group, owner_id: user.id
+      # Can read other groups in the organization user is a part of
+      can :read, Group, organization_id: user.organization.id
     elsif user.has_role?(:admin, Group)
       can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
+      # Can read other groups in the organization user is a part of
+      can :read, Group, organization_id: user.organization.id
     else
-      can :read, Group
+      can :read, Group, :id => user.groups.pluck(:id)
     end
     
     if user.has_role? :organization_creator
       can :create, Organization
-    # elsif user.has_role?(:creator, Organization)
-    #   can :manage, Organization, owner_id: user.id
-    # elsif user.has_role?(:admin, Organization)
-    #   can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
-    # else
-    #   can :read, Organization
+      # This would enable only reading of Organization new action!
+      #can :read, Organization.new
+      can :read, Organization.new
+    end
+    
+    if user.has_role?(:creator, user.organization)
+      can :manage, Organization, owner_id: user.id
+    elsif user.has_role?(:admin, user.organization)
+      can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
+    else
+      can :read, Organization.show, :id => user.organization.id
     end
   end
   
-  def initialize(group)
-    user ||= Group.new # guest group??
+  # def initialize(group)
+  #   user ||= Group.new # guest group??
     
-    alias_action :create, :read, :update, :destroy, to: :crud
+  #   alias_action :create, :read, :update, :destroy, to: :crud
     
-    if group.has_role? :admin
-      # can :read, Animal, within organization
-    elsif group.has_role? :vet
-      # can :read, Animal, within organization
-    else
-      # can :read, Animal, within group
-    end
-  end
-  # Define abilities for the passed in user here. For example:
+  #   if group.has_role? :admin
+  #     # can :read, Animal, within organization
+  #   elsif group.has_role? :vet
+  #     # can :read, Animal, within organization
+  #   else
+  #     # can :read, Animal, within group
+  #   end
+  # end
+  # # Define abilities for the passed in user here. For example:
   #
   #   user ||= User.new # guest user (not logged in)
   #   if user.admin?
