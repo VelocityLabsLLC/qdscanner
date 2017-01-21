@@ -20,11 +20,15 @@ class Ability
           # Manage his own group
           can :manage, Group, owner_id: user.id
           # Can read other groups in the organization user is a part of
-          can :read, Group, organization_id: user.organization.id
+          if user.organization
+            can :read, Group, organization_id: user.organization.id
+          end
         elsif user.has_role?(:admin, group)
           can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
           # Can read other groups in the organization user is a part of
-          can :read, Group, organization_id: user.organization.id
+          if user.organization
+            can :read, Group, organization_id: user.organization.id
+          end
         else
           can :read, Group, :id => user.groups.pluck(:id)
         end
@@ -42,10 +46,14 @@ class Ability
       can :manage, Organization, owner_id: user.id
     elsif user.has_role?(:admin, user.organization)
       can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
+      can :add_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
+      can :remove_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
     else
-      if user.organization
-        can :read, Organization, :id => user.organization.id
-      end
+      #if user.organization
+      can :read, Organization #, :id => user.organization.id
+      #can join an organization
+      can :add_user, Organization
+      #end
     end
   end
   

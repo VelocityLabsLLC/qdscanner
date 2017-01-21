@@ -53,6 +53,7 @@ class GroupsController < ApplicationController
     @user.groups << @group
     #If user is already in group return error
     #end
+    redirect_to group_path(id: @group.id)
   end
   
   private

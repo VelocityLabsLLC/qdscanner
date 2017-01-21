@@ -11,6 +11,19 @@ Rails.application.routes.draw do
     resource :profile
   end
   
-  resources :groups
-  resources :organizations
+  resources :groups do
+    member do
+      patch :add_user
+      put :add_user
+      delete :remove_user
+    end
+  end
+  
+  resources :organizations do
+    member do
+      patch :add_user
+      put :add_user
+      delete :remove_user
+    end
+  end
 end

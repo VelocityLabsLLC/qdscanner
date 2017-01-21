@@ -33,7 +33,51 @@ class OrganizationsController < ApplicationController
   end
   
   def update
-    # add more groups to organization here
+    
+  end
+  
+  def destroy
+    # Delete organization
+  end
+  
+  def add_user
+    # add users to organization
+    @user = User.find ( params[:user_id] )
+    unless @user.organization
+      @user.organization_id = params[:id]
+      if @user.save
+        flash[:success] = "Organization added!"
+        @user.add_role(:default_role, Organization.find( params[:id] ) )
+        # Redirect user organization page
+        redirect_to organization_path(id: params[:id] )
+      else
+        render organization_path(id: params[:id] )
+      end
+    else
+      flash[:danger] = "You already belong to an organization!"
+      # Redirect user to their profile page
+      redirect_to organization_path(id: @user.organization_id )
+    end
+  end
+  
+  def remove_user
+    # Place holder has to be there for query to work
+    @user = User.find( params[:user_id] )
+    if @user.has_any_role? :place_holder , { :name => :creator, :resource => @organization }, { :name => :admin, :resource => @organization }
+      puts "User is an admin"
+      # user is an admin
+      # Check if there are other admins
+      if only_admin?
+        puts "User is the only admin in org"
+        # If there are no other admins redirect to organization page and flash error
+        flash[:danger] = "Please add another admin to the organization before you leave!"
+        return redirect_to organization_path(@organization.id)
+      else
+        puts "User is not the only admin in org"
+      end
+    end
+    @user = User.find ( params[:user_id] )
+    @organization.users.delete(@user)
   end
   
   private
@@ -50,11 +94,17 @@ class OrganizationsController < ApplicationController
       if current_user.plan_id==3
         if over_organization_creation_limit?
           flash[:notice] = 'You have reached your organization creation limit!'
-          redirect_to(root_url)
+          return redirect_to(root_url)
         end
       else
         flash[:notice] = 'Upgrade plan to create an organization!'
         #redirect_to(plans_path)
       end
+    end
+    
+    # Check if user is the only admin
+    def only_admin?
+      admins=User.with_role(:creator, @organization) + User.with_role(:admin, @organization)
+      return admins.reject { |key| key.id==@user.id }.empty?
     end
 end

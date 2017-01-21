@@ -4,16 +4,26 @@
       <h1 class="text-center">Groups in Organization <strong><%=@organization.name%></strong></h1>
       <ul class="list-unstyled">
         <% @groups.each do |group| %>
-          <li>
-            <div class="well row <%= cycle('white-bg','') %>">
-              <% if current_user==@owner %>
-                <h2>Owner</h2>
-              <% end %>
-              <h3><%= user.email %></h3>
-            </div>
-          </li>
+          <% if can? :read, group %>
+            <li>
+              <div class="well row <%= cycle('white-bg','') %>">
+                <h3><%= group.name %></h3>
+                <% if current_user==@owner %>
+                  <h2>Owner</h2>
+                <% end %>
+                
+              </div>
+            </li>
+          <% end %>
         <% end %>
-        <%= link_to "Add/remove groups in organization", edit_organization_path(:id => @organization.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <% if can? :update, @organization %>
+          <%= link_to "Add/remove groups in organization", edit_organization_path(:id => @organization.id), class: 'btn btn-primary btn-lg' %>
+        <% end %>
+        <% if current_user.organization==@organization %>
+          <%= button_to "Leave organization", remove_user_organization_path(:id => @organization.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+        <% else %>
+          <%= link_to "Join organization", add_user_organization_path(:id => @organization.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <% end %>
       </ul>
     </div>
   </div>
