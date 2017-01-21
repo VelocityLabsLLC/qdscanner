@@ -7,25 +7,28 @@ class Ability
     
     alias_action :create, :read, :update, :destroy, to: :crud
     
-    if user.has_role? :group_creator
-      can :create, Group
-      # This would enable only reading of Group new action!
-      #can :read, Group.new
-      can :read, Group.new
-    end
-    
-    #user.groups.each do |group|
-    if user.has_role?(:creator, Group)
-      # Manage his own group
-      can :manage, Group, owner_id: user.id
-      # Can read other groups in the organization user is a part of
-      can :read, Group, organization_id: user.organization.id
-    elsif user.has_role?(:admin, Group)
-      can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
-      # Can read other groups in the organization user is a part of
-      can :read, Group, organization_id: user.organization.id
+    if user.groups.empty?
+      if user.has_role? :group_creator
+        can :create, Group
+        # This would enable only reading of Group new action!
+        #can :read, Group.new
+        can :read, Group.new
+      end
     else
-      can :read, Group, :id => user.groups.pluck(:id)
+      user.groups.each do |group|
+        if user.has_role?(:creator, group)
+          # Manage his own group
+          can :manage, Group, owner_id: user.id
+          # Can read other groups in the organization user is a part of
+          can :read, Group, organization_id: user.organization.id
+        elsif user.has_role?(:admin, group)
+          can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
+          # Can read other groups in the organization user is a part of
+          can :read, Group, organization_id: user.organization.id
+        else
+          can :read, Group, :id => user.groups.pluck(:id)
+        end
+      end
     end
     
     if user.has_role? :organization_creator
@@ -40,7 +43,9 @@ class Ability
     elsif user.has_role?(:admin, user.organization)
       can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
     else
-      can :read, Organization.show, :id => user.organization.id
+      if user.organization
+        can :read, Organization, :id => user.organization.id
+      end
     end
   end
   
