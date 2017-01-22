@@ -14,7 +14,14 @@
             </div>
           </li>
         <% end %>
-        <%= link_to "Join Group", group_path(:id => @group.id),:method => :put, class: 'btn btn-primary btn-lg' %>
+        <% if can? :update, @group %>
+          <%= link_to "Add/remove users in group", edit_group_path(:id => @group.id), class: 'btn btn-primary btn-lg' %>
+        <% end %>
+        <% if current_user.groups.exists?( @group.id ) %>
+          <%= button_to "Leave Group", remove_user_group_path(:id => @group.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+        <% else %>
+          <%= link_to "Join Group", add_user_group_path(:id => @group.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <% end %>
       </ul>
     </div>
   </div>

@@ -6,40 +6,50 @@ class Ability
     user ||= User.new # guest user (not logged in)
     
     alias_action :create, :read, :update, :destroy, to: :crud
+    alias_action :add_user, :remove_user, to: :update_users
     
-    if user.groups.empty?
-      if user.has_role? :group_creator
-        can :create, Group
-        # This would enable only reading of Group new action!
-        #can :read, Group.new
-        can :read, Group.new
-      end
+    # If the user is in an org, they can view their org's groups
+    if user.organization
+      can :read, Group, organization_id: user.organization.id
+      can :add_user, Group, organization_id: user.organization.id
     else
+      # Everyone not in an org sees unaffiliated Groups (actually in org 1 "None")
+      can :read, Group, organization_id: 1
+      can :add_user, Group, organization_id: 1
+    end
+    
+    # If User has global group_creator, can read :new action and create Groups
+    if user.has_role? :group_creator
+      can :create, Group
+      # This would enable only reading of Group new action!
+      #can :read, Group.new
+      can :read, Group.new
+    end
+    
+    # Group instance roles
+    unless user.groups.empty?
       user.groups.each do |group|
         if user.has_role?(:creator, group)
-          # Manage his own group
-          can :manage, Group, owner_id: user.id
-          # Can read other groups in the organization user is a part of
-          if user.organization
-            can :read, Group, organization_id: user.organization.id
-          end
+          # User can :manage his own group including all unique controller actions
+          #can :manage, Group, owner_id: user.id
+          can :manage, group
         elsif user.has_role?(:admin, group)
-          can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
-          # Can read other groups in the organization user is a part of
-          if user.organization
-            can :read, Group, organization_id: user.organization.id
-          end
-        else
-          can :read, Group, :id => user.groups.pluck(:id)
+          # User can use standard controller actions and update the users in group
+          #can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
+          can :crud, group
+          can :update_users, group
+        elsif user.has_role?(:default_role, group)
+          # User can only remove themselves from group
+          can :remove_user, group
         end
       end
     end
     
+    can :read, Organization
     if user.has_role? :organization_creator
       can :create, Organization
       # This would enable only reading of Organization new action!
       #can :read, Organization.new
-      can :read, Organization.new
     end
     
     if user.has_role?(:creator, user.organization)
@@ -48,12 +58,13 @@ class Ability
       can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
       can :add_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
       can :remove_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
+    elsif user.has_role?(:default_role, user.organization)
+      # can remove a user from organization if they have one
+      can :remove_user, user.organization
     else
-      #if user.organization
-      can :read, Organization #, :id => user.organization.id
-      #can join an organization
+      #can :read, Organization #, :id => user.organization.id
+      # can join an organization
       can :add_user, Organization
-      #end
     end
   end
   

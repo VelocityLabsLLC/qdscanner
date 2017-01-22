@@ -39,7 +39,7 @@
           <% if current_user.has_role?(:group_creator) || current_user.has_role?(:organization_creator) %>
             <%= link_to "Create a New Group", new_group_path, class: 'btn btn-default btn-lg btn-block' %>
           <% end %>
-          <%= link_to "Join a New Group", groups_path, class: 'btn btn-default btn-lg btn-block' %>
+          <%= link_to "Join an Existing Group", groups_path, class: 'btn btn-default btn-lg btn-block' %>
         </div>
       </div>
     <% else %>

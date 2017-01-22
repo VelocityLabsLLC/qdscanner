@@ -7,7 +7,9 @@
           <% if can? :read, group %>
             <li>
               <div class="well row <%= cycle('white-bg','') %>">
-                <h3><%= group.name %></h3>
+                <%= link_to group do %>
+                  <h3><%= group.name %></h3>
+                  <% end %>
                 <% if current_user==@owner %>
                   <h2>Owner</h2>
                 <% end %>

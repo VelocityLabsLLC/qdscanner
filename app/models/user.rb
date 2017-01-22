@@ -4,7 +4,7 @@ class User < ApplicationRecord
   belongs_to :plan
   has_one :profile
   
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   belongs_to :organization
   #has_many :animals

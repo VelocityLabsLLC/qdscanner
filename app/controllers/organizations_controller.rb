@@ -33,7 +33,7 @@ class OrganizationsController < ApplicationController
   end
   
   def update
-    
+    # Add groups to organization
   end
   
   def destroy
@@ -47,10 +47,11 @@ class OrganizationsController < ApplicationController
       @user.organization_id = params[:id]
       if @user.save
         flash[:success] = "Organization added!"
-        @user.add_role(:default_role, Organization.find( params[:id] ) )
+        @user.add_role(:default_role, @organization )
         # Redirect user organization page
         redirect_to organization_path(id: params[:id] )
       else
+        flash[:danger] = "Failed to add organization please try again!"
         render organization_path(id: params[:id] )
       end
     else
@@ -76,8 +77,9 @@ class OrganizationsController < ApplicationController
         puts "User is not the only admin in org"
       end
     end
-    @user = User.find ( params[:user_id] )
+    # There is an alternate admin if method did not return yet
     @organization.users.delete(@user)
+    remove_instance_roles
   end
   
   private
@@ -106,5 +108,14 @@ class OrganizationsController < ApplicationController
     def only_admin?
       admins=User.with_role(:creator, @organization) + User.with_role(:admin, @organization)
       return admins.reject { |key| key.id==@user.id }.empty?
+    end
+    
+    # Remove all roles associated with group instance
+    def remove_instance_roles
+      puts "Removing roles"
+      rol_list = ["creator", "admin", "default_role"]
+      rol_list.each do |rol|
+        if @user.has_role?(rol, @organization) then @user.remove_role(rol, @organization) end
+      end
     end
 end
