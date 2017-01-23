@@ -26,6 +26,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     end
   end
+  
+  def update_cc
+       
+  end
+  
   private
     def select_plan
       unless (params[:plan] == '1' || params[:plan] == '2' || params[:plan] == '3')

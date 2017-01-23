@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   devise_scope :user do
-    put 'change_plan', :to => 'registrations#change_plan'
+    get 'change_plan', :to => 'users/registrations#change_plan'
+    put 'change_plan', :to => 'users/registrations#change_plan'
+    patch 'change_plan', :to => 'users/registrations#change_plan'
+    get 'update_cc', :to => 'users/registrations#update_cc'
   end
   get 'about', to: 'pages#about'
   get 'plans', to: 'pages#plans'
