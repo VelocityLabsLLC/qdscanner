@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_scope :user do
+    put 'change_plan', :to => 'registrations#change_plan'
+  end
   get 'about', to: 'pages#about'
   get 'plans', to: 'pages#plans'
   resources :contacts, only: :create

@@ -1,0 +1,11 @@
+<div class="well">
+  <h2 class="text-center">Basic Membership</h2>
+  <h4 class="text-center">Sign up for free to purchase products or join existing groups.</h4>
+  <br/>
+  <%= link_to "Sign up with Basic", new_user_registration_path(plan: @basic_plan.id), class: 'btn btn-primary btn-lg btn-block' %>
+  <br/>
+  <ul>
+    <li>Purchase items in shop</li>
+    <li>Join existing groups and organizations</li>
+  </ul>
+</div>

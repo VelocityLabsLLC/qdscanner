@@ -96,7 +96,7 @@ class GroupsController < ApplicationController
     end
     
     def over_group_creation_limit?
-      num_groups=Group.find_roles(:group_creator, current_user).count
+      num_groups=Group.find_roles(:creator, current_user).count
       return !(num_groups<current_user.group_creation_limit)
     end
     

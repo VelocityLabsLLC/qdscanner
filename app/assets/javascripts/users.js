@@ -1,7 +1,8 @@
 /* global $, Stripe */
 //Document ready.
 $(document).on('turbolinks:load', function(){
-  var theForm = $('#pro_form');
+  // subscription_form identifies both premium and pro user forms
+  var theForm = $('#subscription_form');
   var submitBtn = $('#form-signup-btn');
   //Set Stripe public key.
   Stripe.setPublishableKey( $('meta[name="stripe-key"]').attr('content') );

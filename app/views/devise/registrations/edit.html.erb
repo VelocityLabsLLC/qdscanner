@@ -39,6 +39,26 @@
         </div>
       <% end %>
       
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well">
+        <h3>Subscription Plan</h3>
+        <%= form_for(resource, :as => resource_name, :url => change_plan_path, :html => { :method => :put, :role  => 'form'}) do |f| %>
+          <div class="form-group">
+            <%= f.label 'Subscription plan' %>
+            <%= f.collection_select(:plan_id, Plan.all, :id, :name) %>
+          </div>
+          <%= f.submit 'Change Plan', :class => 'button right' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
       <h3>Cancel my account</h3>
       
       <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %></p>

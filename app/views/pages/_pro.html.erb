@@ -1,0 +1,13 @@
+<div class="well">
+  <h2 class="text-center">Pro Membership</h2>
+  <h4 class="text-center">Sign up for the organization account to create an organization ($100/month).</h4>
+  <br/>
+  <%= link_to "Sign up with Pro", new_user_registration_path(plan: @pro_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+  <br/>
+  <ul>
+    <li>Purchase items in shop</li>
+    <li>Create an organization</li>
+    <li>Unlimited groups within organization</li>
+    <li>Regulate group access to other groups within organization</li>
+  </ul>
+</div>

@@ -1,0 +1,12 @@
+<div class="well">
+  <h2 class="text-center">Premium Membership</h2>
+  <h4 class="text-center">Sign up for the premium account to create a group ($10/month).</h4>
+  <br/>
+  <%= link_to "Sign up with Premium", new_user_registration_path(plan: @group_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+  <br/>
+  <ul>
+    <li>Purchase items in shop</li>
+    <li>Create a small group</li>
+    <li>Regulate user access</li>
+  </ul>
+</div>

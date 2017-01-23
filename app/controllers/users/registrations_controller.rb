@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :select_plan, only: :new
 
   # Extend default Devise gem behavior so that users signing up with 
-  # the Pro account (plan ID 2) save with a special Stripe subscription function
+  # the Premium or Pro account (plan ID 2 or 3) save with a special Stripe subscription function
   # Otherwise Devise signs up user as usual
   def create
     super do |resource|
@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         elsif resource.plan_id == 2
           resource.add_role :group_creator
           resource.group_creation_limit=1
+          resource.organization = Organization.first
           resource.save_with_subscription
         else
           resource.add_role :basic

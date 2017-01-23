@@ -61,7 +61,7 @@
           <h2 class="text-center">Premium Membership</h2>
           <h4 class="text-center">Sign up for the premium account to create a group ($10/month).</h4>
           <br/>
-          <%= link_to "Sign up with Premium", new_user_registration_path(plan: @group_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+          <%= link_to "Sign up with Premium", new_user_registration_path(plan: @premium_plan.id), class: 'btn btn-success btn-lg btn-block' %>
           <br/>
           <ul>
             <li>Purchase items in shop</li>
@@ -88,47 +88,7 @@
     <% end %>
   </div>
 </div>
-<div class="container home-plan-chart">
-  <div class="row">
-    <div class="col-md-6 col-offset-3">
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Basic</th>
-            <th>Premium</th>
-            <th>Pro</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Shop</td>
-            <td><i class='fa fa-check'></i></td>
-            <td><i class='fa fa-check'></i></td>
-            <td><i class='fa fa-check'></i></td>
-          </tr>
-          <tr>
-            <td>Join Group/Organizations</td>
-            <td><i class='fa fa-check'></i></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<div>
-  <h1>has role organization_creator</h1>
-  <% if user_signed_in? %>
-    <%= current_user.has_role? :organization_creator%>
-  <% else %>
-    <p>Not signed in</p>
-  <% end %>
-  <h1>can create organization</h1>
-  <%= can? :create, Organization %>
-  <h1>can read organization</h1>
-  <%= can? :read, Organization %>
-  <h1>can read organizations/5</h1>
-  <%= can? :read, Organization.find(5) %>
-</div>
+
+<% unless current_user %>
+  <%= render 'plan_table' %>
+<% end %>
