@@ -6,6 +6,8 @@ class GroupsController < ApplicationController
   def index
     if current_user.organization
       @groups = current_user.organization.groups
+    else
+      @groups = Organization.find(1).groups
     end
   end
   
