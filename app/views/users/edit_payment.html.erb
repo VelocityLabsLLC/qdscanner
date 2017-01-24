@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="well">
+        <%= form_for(@user, url: user_update_payment_path(:user_id => @user.id, :plan_id => params[:plan_id]), html: {id: 'use-existing-card-form'}) do |f| %>
+          <!--Show cards on file if they exist-->
+          <% if @cards.empty? %>
+            <h1> Please add a payment method </h1>
+          <% else %>
+            <h1> Please select payment method </h1>
+            <% @cards.each do |card| %>
+              <div class="row">
+                <div class="col-md-2">
+                  <%= radio_button_tag :card_id, card.id %>
+                </div>
+                <div class="col-md-6">
+                  <%= label_tag :card_id, "#{card.brand} ****-#{card.last4}" %>
+                </div>
+              </div>
+            <% end %>
+            <div class="actions form-group">
+              <%= f.submit "Use Card", class: 'btn btn-success', id: 'use-existing-card-btn' %>
+            </div>
+          <% end %>
+        <% end %>
+        
+        <%= button_tag "Add Payment Method", id: 'payment-add-btn', class: 'btn btn-info' %>
+          
+        <div id="payment-add-form">
+          <!--Add a new card-->
+          <%= form_for(@user,  url: user_update_payment_path(:user_id => @user.id, :plan_id => params[:plan_id]), html: {id: 'add-card-form'}) do |f| %>
+            <div class="field form-group">
+              <%= label_tag :card_number, "Credit Card Number" %>
+              <%= text_field_tag :card_number, nil, name: nil, class: "form-control" %>
+            </div>
+            <div class="field form-group">
+              <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+              <%= text_field_tag :card_code, nil, name: nil, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= label_tag :card_month, "Card Expiration" %>
+              <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month" } %>
+              <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year" } %>
+            </div>
+            
+            <div class="actions form-group">
+              <%= f.submit "Add and Use Card", class: 'btn btn-success', id: 'add-card-btn' %>
+            </div>
+            
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

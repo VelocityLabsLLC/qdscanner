@@ -112,7 +112,6 @@ class OrganizationsController < ApplicationController
     
     # Remove all roles associated with group instance
     def remove_instance_roles
-      puts "Removing roles"
       rol_list = ["creator", "admin", "default_role"]
       rol_list.each do |rol|
         if @user.has_role?(rol, @organization) then @user.remove_role(rol, @organization) end

@@ -48,8 +48,22 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="well">
-        <h3>Subscription Plan</h3>
-        <%= link_to "Change Plan", change_plan_path, class: 'btn btn-info' %>
+        <h3>Change Subscription Plan</h3>
+        <%= button_tag "Change Plan", id: 'plan-table-btn', class: 'btn btn-info' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="edit-plan-table">
+  <%= render 'plan_table' %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well">
+        <%= link_to "Update Payment Info", user_edit_payment_path(:user_id => current_user.id), method: :get, class: 'btn btn-success'%>
       </div>
     </div>
   </div>
@@ -60,7 +74,7 @@
     <div class="col-md-6 col-md-offset-3">
       <h3>Cancel my account</h3>
       
-      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %></p>
+      <p>Unhappy? <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %></p>
       
       <%= link_to "Back", :back %>
     </div>

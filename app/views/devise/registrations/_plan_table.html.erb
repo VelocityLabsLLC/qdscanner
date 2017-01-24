@@ -26,145 +26,82 @@
             </div>
             <div class="pricing-plan-period">month</div>
           </th>
-          <!--<th class="plan-header plan-header-standard">-->
-            <!--<div class="header-plan-inner">-->
-                <!--<span class="plan-head"> </span>-->
-            <!--    <span class="recommended-plan-ribbon">RECOMMENDED</span>-->
-            <!--    <div class="pricing-plan-name">STANDARD</div>-->
-            <!--    <div class="pricing-plan-price">-->
-            <!--        <sup>$</sup>34<span>.99</span>-->
-            <!--    </div>-->
-            <!--    <div class="pricing-plan-period">month</div>-->
-            <!--</div>-->
-          <!--</th>-->
-          <!--<th class="plan-header plan-header-blue">-->
-            <!--<div class="pricing-plan-name">PREMIUM</div>-->
-            <!--<div class="pricing-plan-price">-->
-            <!--    <sup>$</sup>99<span>.99</span>-->
-            <!--</div>-->
-            <!--<div class="pricing-plan-period">month</div>-->
-          <!--</th>-->
         </tr>
           <tr>
             <td></td>
             <td class="action-header">
-              <% if current_user %>
-                <% if current_user.plan_id==1 %>
-                  <div class="current-plan">
-                    <div class="with-date">Current Plan</div>
-                  </div>
-                <% else %>
-                  <%= link_to "Downgrade", change_plan_path(:plan_id => 1), method: :put, class: 'btn btn-info'%>
-                  <!--<a class="btn btn-info">Downgrade</a>-->
-                <% end %>
+              <% if current_user.plan_id==1 %>
+                <div class="current-plan">
+                  <div class="with-date">Current Plan</div>
+                </div>
               <% else %>
-                <%= link_to "Sign up", new_user_registration_path(plan: @basic_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+                <%= link_to "Downgrade", user_cancel_plan_path(:user_id => current_user.id), data: { confirm: "Are you want to cancel your subscription?" }, method: :put, class: 'btn btn-info'%>
               <% end %>
             </td>
             <td class="action-header">
-              <% if current_user %>
-                <% if current_user.plan_id==1 %>
-                  <%= link_to "Upgrade", update_cc_path(:plan_id => 2), class: 'btn btn-success'%>
-                  <!--<a class="btn btn-success">Upgrade</a>-->
-                <% elsif current_user.plan_id==2 %>
-                  <div class="current-plan">
-                    <div class="with-date">Current Plan</div>
-                  </div>
-                <% else %>
-                  <%= link_to "Downgrade", change_plan_path(:plan_id =>2), class: 'btn btn-info'%>
-                  <!--<a class="btn btn-info">Downgrade</a>-->
-                <% end %>
+              <% if current_user.plan_id==1 %>
+                <%= link_to "Upgrade", user_edit_payment_path(:plan_id => 2, :user_id => current_user.id), method: :get, class: 'btn btn-success'%>
+              <% elsif current_user.plan_id==2 %>
+                <div class="current-plan">
+                  <div class="with-date">Current Plan</div>
+                </div>
               <% else %>
-                <%= link_to "Sign up", new_user_registration_path(plan: @premium_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+                <%= link_to "Downgrade", user_edit_payment_path(:plan_id => 2, :user_id => current_user.id), method: :get, class: 'btn btn-info'%>
               <% end %>
             </td>
             <td class="action-header">
-              <% if current_user %>
-                <% if current_user.plan_id==3 %>
-                  <div class="current-plan">
-                    <div class="with-date">Current Plan</div>
-                    <!--<div><em class="smaller block">renews Feb 19, 2015</em></div>-->
-                  </div>
-                <% else %>
-                  <%= link_to "Upgrade", update_cc_path(:plan_id => 3), class: 'btn btn-success'%>
-                  <!--<a class="btn btn-success">Upgrade</a>-->
-                <% end %>
+              <% if current_user.plan_id==3 %>
+                <div class="current-plan">
+                  <div class="with-date">Current Plan</div>
+                </div>
               <% else %>
-                <%= link_to "Sign up", new_user_registration_path(plan: @pro_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+                <%= link_to "Upgrade", user_edit_payment_path(:plan_id => 3, :user_id => current_user.id), method: :get, class: 'btn btn-success'%>
               <% end %>
             </td>
-            <!--<td class="action-header">-->
-            <!--    <a class="btn btn-success">-->
-            <!--        Upgrade-->
-            <!--    </a>-->
-            <!--</td>-->
-            <!--<td class="action-header">-->
-            <!--    <a class="btn btn-info">-->
-            <!--        Upgrade-->
-            <!--    </a>-->
-            <!--</td>-->
           </tr>
           <tr>
             <td>Shopping:</td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
           </tr>
           <tr>
             <td>Join Independent Groups:</td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
           </tr>
           <tr>
             <td>Join Groups within Organization:</td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
           </tr>
           <tr>
             <td>Join an Organization:</td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
           </tr>
           <tr>
             <td>Create an Independent Research Group:</td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
           </tr>
           <tr>
             <td>Create a Groups within Organization:</td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
-            <!--<td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>-->
           </tr>
           <tr>
             <td>Create an Organization:</td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
             <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-            <!--<td>80</td>-->
-            <!--<td>200</td>-->
           </tr>
-          
       </tbody></table></center>
     </div>
   </div>
-</div>
-<div id="update-cc" class="container">
-  
 </div>

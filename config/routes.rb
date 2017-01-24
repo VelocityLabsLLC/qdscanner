@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  devise_scope :user do
-    get 'change_plan', :to => 'users/registrations#change_plan'
-    put 'change_plan', :to => 'users/registrations#change_plan'
-    patch 'change_plan', :to => 'users/registrations#change_plan'
-    get 'update_cc', :to => 'users/registrations#update_cc'
-  end
+
   get 'about', to: 'pages#about'
   get 'plans', to: 'pages#plans'
   resources :contacts, only: :create
@@ -15,6 +10,13 @@ Rails.application.routes.draw do
   
   resources :users do
     resource :profile
+    put :cancel_plan
+    patch :cancel_plan
+    put :update_payment
+    patch :update_payment
+    put :destroy_card
+    patch :destroy_card
+    get 'edit_payment', :to => 'users#edit_payment'
   end
   
   resources :groups do
