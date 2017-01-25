@@ -87,7 +87,7 @@ h1, h2, h3 {
 
 .footer {
   bottom: 0;
-  height: 70px;
+  min-height: 70px;
   left: 0;
   position: absolute;
   width: 100%;
@@ -114,12 +114,11 @@ h1, h2, h3 {
 
 /* If you don't want the footer to be responsive, remove these media queries */
 
-@media (max-width: 880px) {
+@media (max-width: 1010px) {
 
 	.footer-left, .footer-center, .footer-right {
 	  display: block;
 		width: 100%;
-		margin-bottom: 40px;
 		text-align: center;
 	}
 	

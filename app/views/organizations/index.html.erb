@@ -1,10 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3 text-center">
       <h1 class="text-center">Organizations</h1>
-      <p class="text-center">All Created Organizations.</p>
+      <% if @organizations.count==1 %>
+        <h3>No organization have been created yet!</h3>
+      <% end %>
       <ul class="list-unstyled">
         <% @organizations.each do |organization| %>
+          <% next if organization.id==1 %>
           <li>
             <div class="well row <%= cycle('white-bg','') %>">
               <%= link_to organization do %>
@@ -14,6 +17,12 @@
           </li>
         <% end %>
       </ul>
+      <% if current_user.has_role? :organization_creator %>
+        <div class="well text-center">
+          <h4> Create your own organization!</h4>
+          <%= link_to "Create an Organization", new_organization_path, class: 'btn btn-success btn-lg' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

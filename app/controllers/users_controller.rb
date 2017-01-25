@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     if @user.stripe_customer_token
       customer = Stripe::Customer.retrieve(@user.stripe_customer_token)
       @cards = customer.sources.all(:object => "card")
+      @default_card=customer.default_source
     end
     @subscription = customer.subscriptions.first
     #@current_plan=subscription.plan.id
@@ -25,7 +26,6 @@ class UsersController < ApplicationController
     @user = User.find( params[:user_id] )
     customer = Stripe::Customer.retrieve(@user.stripe_customer_token)
     @cards = customer.sources.all(:object => "card")
-    
     # If a new stripe card token was created add it to the list
     if params[:user][:stripe_card_token]!="none"
       # Add new card to customer

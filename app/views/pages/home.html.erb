@@ -1,10 +1,11 @@
-<div class="home-callout container-fluid">
-  <div class="container text-center">
-    <h1>Welcome to Velocity Laboratories</h1>
-    <h3>Helping out clients bring new pain relieving medicines to market sooner through innovative and accelerated preclinical testing.</h3>
+<% if !user_signed_in? %>
+  <div class="home-callout container-fluid">
+    <div class="container text-center">
+      <h1>Welcome to Velocity Laboratories</h1>
+      <h3>Helping out clients bring new pain relieving medicines to market sooner through innovative and accelerated preclinical testing.</h3>
+    </div>
   </div>
-</div>
-
+<% end %>
 <div class="container home-signup-links">
   <div class="row">
     <% if user_signed_in? %>

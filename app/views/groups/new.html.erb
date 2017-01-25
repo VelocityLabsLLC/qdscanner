@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3 well">
       <%= form_for @group , :url => groups_path do |f| %>
         
         <%= f.hidden_field :owner_id, :value => current_user.id %>
         
         <div class="form-group">
-          <%= f.label :name %>
+          <%= f.label :name, "Group Name" %>
           <%= f.text_field :name, class: 'form-control' %>
         </div>
         
@@ -15,22 +15,26 @@
           <%= f.text_field :description, class: 'form-control' %>
         </div>
         
-        <% if current_user.organization_id!=1 %>
-          <%= f.hidden_field :organization_id, :value => current_user.organization.id %>
-        <% else %>
-          <div class="form-group">
-            <%= f.label :organization_id %>
-            <div class="input-group">
-              <%= select_tag :organization_id, options_from_collection_for_select(@organizations, :id, :name), class: 'form-control' %>
-              <span class="input-group-btn">
-                <%= link_to "Create Organization", new_organization_path, class: 'btn btn-primary' %>
-              </span>
+        <%= f.hidden_field :organization_id, :value => current_user.organization.id %>
+        <% if current_user.organization_id==1 %>
+          <% if current_user.has_role?(:organization_creator) %>
+            <div class="text-center">
+              <h4>Group will not be affiliated with an organization</h4>
+              <p>Create a new organization first if you would ike to associate this group with your organization</p>
+              <%= link_to "Create New Organization", new_organization_path, class: 'btn btn-default' %>
             </div>
-          </div>
+          <% else %>
+            <div>
+              <h3>Group will not be affiliated with an organization</h3>
+              <p>Join an organization first if you would like to associate this group with an organization</p>
+              <%= link_to "Join an Organization", organizations_path, class: 'btn btn-default' %>
+            </div>
+          <% end %>
         <% end %>
-        
-        <%= f.submit 'Create Group', class: 'btn btn-success' %>
-      
+        <br/>
+        <div class="text-center">
+          <%= f.submit 'Create Group', class: 'btn btn-success' %>
+        </div>
       <% end %>
     </div>
   </div>

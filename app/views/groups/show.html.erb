@@ -15,10 +15,16 @@
           </li>
         <% end %>
         <% if can? :update, @group %>
-          <%= link_to "Add/remove users in group", edit_group_path(:id => @group.id), class: 'btn btn-primary btn-lg' %>
+          <div class="row text-center">
+            <%#= link_to "Add/remove users in group", edit_group_path(:id => @group.id), class: 'btn btn-primary btn-lg' %>
+            <br/>
+          </div>
         <% end %>
         <% if current_user.groups.exists?( @group.id ) %>
-          <%= button_to "Leave Group", remove_user_group_path(:id => @group.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+          <div class="row text-center">
+            <br/>
+            <%= button_to "Leave Group", remove_user_group_path(:id => @group.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+          </div>
         <% else %>
           <%= link_to "Join Group", add_user_group_path(:id => @group.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
         <% end %>

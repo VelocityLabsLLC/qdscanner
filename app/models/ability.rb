@@ -9,7 +9,7 @@ class Ability
     alias_action :add_user, :remove_user, to: :update_users
     
     # If the user is in an org, they can view their org's groups
-    if user.organization
+    if user.organization_id!=1
       can :read, Group, organization_id: user.organization.id
       can :add_user, Group, organization_id: user.organization.id
     else

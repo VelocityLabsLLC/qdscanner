@@ -4,11 +4,7 @@ class GroupsController < ApplicationController
   before_action :can_create_group?, only: :new
   
   def index
-    # if current_user.organization
-    #   @groups = current_user.organization.groups
-    # else
-    #   @groups = Organization.find(1).groups
-    # end
+    @groups=current_user.organization.groups
   end
   
   def new
@@ -80,7 +76,7 @@ class GroupsController < ApplicationController
       if only_admin?
         puts "User is the only admin in group"
         # If there are no other admins redirect to organization page and flash error
-        flash[:danger] = "Please add another admin to the organization before you leave!"
+        flash[:danger] = "Please add another admin to the group before you leave!"
         return redirect_to group_path(@group.id)
       else
         puts "User is not the only admin in org"

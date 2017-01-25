@@ -11,7 +11,7 @@
             <% @cards.each do |card| %>
               <div class="row">
                 <div class="col-md-2">
-                  <%= radio_button_tag :card_id, card.id %>
+                  <%= radio_button_tag :card_id, card.id, (card.id==@default_card) %>
                 </div>
                 <div class="col-md-6">
                   <%= label_tag :card_id, "#{card.brand} ****-#{card.last4}" %>
