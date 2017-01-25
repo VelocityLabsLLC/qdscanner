@@ -21,6 +21,21 @@
 
 @import 'variables';
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    box-sizing: border-box;
+    min-height: 100%;
+    padding: 0 0 100px;
+    position: relative;
+}
+
+
 // Typography Styles
 h1, h2, h3 {
   font-family: 'Open Sans', sans-serif;
@@ -71,5 +86,41 @@ h1, h2, h3 {
 }
 
 .footer {
-  @include background-gradient;
+  bottom: 0;
+  height: 70px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  padding-top: 15px;
+  font-weight: 500;
+  font-size: 1.25em;
+  
+  .footer-brand {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .footer-brand,
+  li > a {
+    color: white;
+    &:hover {
+      color: white;
+      opacity: 0.75;
+    }
+  }
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+
+	.footer-left, .footer-center, .footer-right {
+	  display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+	
 }

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   rolify
+  before_create :assign_default_organization
   after_create :assign_default_role
   belongs_to :plan
   has_one :profile
@@ -26,6 +27,10 @@ class User < ApplicationRecord
       self.stripe_customer_token = customer.id
       save!
     end
+  end
+  
+  def assign_default_organization
+    self.organization=Organization.first unless self.organization
   end
   
   def assign_default_role

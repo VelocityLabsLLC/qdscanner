@@ -9,57 +9,83 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
   </head>
-
   <body>
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class='container'>
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to root_path, class: "navbar-brand" do %>
-            <i class="fa fa-cogs" aria-hidden="true"></i>
-            Velocity Laboratories
-          <% end %>
-        </div>
-        <div class="collapse navbar-collapse" id="main-nav-collapse">
-          <div class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-default navbar-btn" %>
-            <% else %>
-              <%= link_to "Log In", new_user_session_path, class: "btn btn-default navbar-btn" %>
+    <div class="page">
+      <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class='container'>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <%= link_to root_path, class: "navbar-brand" do %>
+              <i class="fa fa-cogs" aria-hidden="true"></i>
+              Velocity Laboratories
             <% end %>
           </div>
-          <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-              <% if current_user.groups.empty? %>
-                <li><%= link_to "Join a Group", groups_path %></li>
+          <div class="collapse navbar-collapse" id="main-nav-collapse">
+            <div class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+                <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-default navbar-btn" %>
               <% else %>
-                <li><%= link_to "View Groups", groups_path %></li>
+                <%= link_to "Log In", new_user_session_path, class: "btn btn-default navbar-btn" %>
               <% end %>
-              <% if current_user.organization %>
-                <li><%= link_to "View Organization", organization_path(id: current_user.organization.id) %></li>
-              <% else %>
-                <li><%= link_to "Join an Organization", organizations_path %></li>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+                <% if current_user.groups.empty? %>
+                  <li><%= link_to "Join a Group", groups_path %></li>
+                <% else %>
+                  <li><%= link_to "View Groups", groups_path %></li>
+                <% end %>
+                <% if current_user.organization_id!=1 %>
+                  <li><%= link_to "View Organization", organization_path(id: current_user.organization.id) %></li>
+                <% else %>
+                  <li><%= link_to "Join an Organization", organizations_path %></li>
+                <% end %>
+                <li><%= link_to "My Account", edit_user_registration_path %></li>
               <% end %>
-              <li><%= link_to "My Account", edit_user_registration_path %></li>
-            <% end %>
-            <li><%= link_to "About", about_path %></li>
-            <li><%= link_to "Contact Us", new_contact_path %></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div>
+      </nav>
+      <div class="container flash-container">
+        <% flash.each do |type, msg| %>
+          <%= content_tag :div, msg, class: "alert alert-#{type}" %>
+        <% end %>
       </div>
-    </nav>
-    <div class="container flash-container">
-      <% flash.each do |type, msg| %>
-        <%= content_tag :div, msg, class: "alert alert-#{type}" %>
-      <% end %>
+    
+      <%= yield %>
+      
+      <footer class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="footer-left col-md-4">
+              <ul class="list-inline">
+                <li class="list-inline-item footer-link"><%= link_to "About", about_path %></li>
+                <li class="list-inline-item footer-link"><%= link_to "Contact Us", new_contact_path %></li>
+              </ul>
+            </div>
+            <div class="footer-left col-md-4 text-center">
+              <ul class="list-inline">
+                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-facebook" aria-hidden="true"></i><% end %></li>
+                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-twitter" aria-hidden="true"></i><% end %></li>
+                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-instagram" aria-hidden="true"></i><% end %></li>
+                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-linkedin" aria-hidden="true"></i><% end %></li>
+                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-youtube" aria-hidden="true"></i><% end %></li>
+              </ul>
+            </div>
+            <div class="footer-right col-md-4 text-right">
+              <%= link_to root_path, class: "footer-brand" do %>
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                Velocity Laboratories
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-
-    <%= yield %>
-
   </body>
 </html>
