@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1 class="text-center">Researchers in Group <strong><%=@group.name%></strong></h1>
+      <h1 class="text-center">Researchers in Group <strong><%=Group.find(params[:id])%></strong></h1>
       <p class="text-center">All created research groups.</p>
       <ul class="list-unstyled">
         <% @users.each do |user| %>

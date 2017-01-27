@@ -27,20 +27,37 @@ class Ability
     end
     
     # Group instance roles
+    
+    # can :manage, Group, :id => Group.with_role(:creator, user).pluck(:id)
+    # can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
+    # can :update_users, Group, :id => Group.with_role(:admin, user).pluck(:id)
+    # can :remove_users, Group, :id => Group.with_role(:tech, user).pluck(:id)
+    # can :remove_users, Group, :id => Group.with_role(:default_role, user).pluck(:id)
+    
+    # can :manage, Animal, :id => Group.with_role(:creator, user).pluck(:id)
+    # can :crud, Animal, :id => Group.with_role(:admin, user).pluck(:id)
+    # can :crud, Group, :id => Group.with_role(:tech, user).pluck(:id)
+    # can :read, Group, :id => Group.with_role(:default_role, user).pluck(:id)
+    
     unless user.groups.empty?
       user.groups.each do |group|
         if user.has_role?(:creator, group)
           # User can :manage his own group including all unique controller actions
           #can :manage, Group, owner_id: user.id
           can :manage, group
+          can :manage, Animal, :group_id => group.id
         elsif user.has_role?(:admin, group)
           # User can use standard controller actions and update the users in group
           #can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
           can :crud, group
           can :update_users, group
+          can :manage, Animal, :group_id => group.id
+        elsif user.has_role?(:tech, group)
+          can :crud, Animal, :group_id => group.id
         elsif user.has_role?(:default_role, group)
           # User can only remove themselves from group
           can :remove_user, group
+          can :read, Animal, :group_id => group.id
         end
       end
     end
@@ -66,6 +83,7 @@ class Ability
       # can join an organization
       can :add_user, Organization
     end
+    
   end
   
   # def initialize(group)

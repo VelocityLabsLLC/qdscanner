@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1 class="text-center">Animals in group <%=@group.name%></h1>
+      <ul class="list-unstyled">
+        <% @animals.each do |animal| %>
+          <li>
+            <div class="well row <%= cycle('white-bg','') %>">
+              <div>
+                <%= link_to animal do %>
+                  <h2><%= animal.animal_type %> <%= animal.strain %> <%= animal.location %> <%= animal.status %></h2>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

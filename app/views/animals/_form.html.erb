@@ -1,0 +1,24 @@
+<%= form_for @animal , :url => animals_path do |f| %>
+  
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  
+  <div class="form-group">
+    <%= f.label :animal_type, "Animal Type" %>
+    <%= f.select :animal_type, options_for_select(animal_types), class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :strain %>
+    <%= f.text_field :strain, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location, class: 'form-control' %>
+  </div>
+  
+  <br/>
+  <div class="text-center">
+    <%= f.submit 'Add Animal to Group', class: 'btn btn-success' %>
+  </div>
+<% end %>

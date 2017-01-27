@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       patch :add_user
       put :add_user
       delete :remove_user
+      resources :animals
     end
   end
   
