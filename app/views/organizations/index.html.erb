@@ -13,11 +13,13 @@
               <%= link_to organization do %>
                 <h2><%= organization.name %></h2>
               <% end %>
+              <h4><%= "Your organization" if current_user.organization_id==organization.id %></h4>
             </div>
           </li>
         <% end %>
       </ul>
-      <% if current_user.has_role? :organization_creator %>
+      <!--&& !(current_user.has_role? (:creator, Organization))-->
+      <% if current_user.has_role? :organization_creator && !Organization.pluck(:owner_id).include?(current_user.id) %>
         <div class="well text-center">
           <h4> Create your own organization!</h4>
           <%= link_to "Create an Organization", new_organization_path, class: 'btn btn-success btn-lg' %>

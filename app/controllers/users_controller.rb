@@ -4,9 +4,9 @@ class UsersController < ApplicationController
     @users = User.includes(:profile)
   end
   
-  # GET to /users/:id
+  # GET to /users/:user_id
   def show
-    @user = User.find( params[:id] )
+    @user = User.find( params[:user_id] )
   end
   
   def edit_payment

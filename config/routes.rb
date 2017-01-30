@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get 'contact-us', to: 'contacts#new', as: 'new_contact'
   
   
-  resources :users do
+  resources :users, param: :user_id
+  resources :users, only: [] do
     resource :profile
     put :cancel_plan
     patch :cancel_plan
@@ -19,16 +20,21 @@ Rails.application.routes.draw do
     get 'edit_payment', :to => 'users#edit_payment'
   end
   
-  resources :groups do
+  resources :groups, param: :group_id
+  
+  resources :groups, only: [] do
+    resources :animals, param: :animal_id
+  end
+  
+  resources :groups, only: [], param: :group_id do 
     member do
       patch :add_user
       put :add_user
       delete :remove_user
-      resources :animals
     end
   end
   
-  resources :organizations do
+  resources :organizations, param: :organization_id do
     member do
       patch :add_user
       put :add_user

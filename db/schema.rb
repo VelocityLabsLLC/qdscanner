@@ -13,14 +13,14 @@
 ActiveRecord::Schema.define(version: 20170127143959) do
 
   create_table "animals", force: :cascade do |t|
-    t.string   "type"
+    t.string   "animal_type"
     t.string   "strain"
     t.string   "location"
-    t.integer  "status",     default: 0
+    t.integer  "status",      default: 0
     t.integer  "group_id"
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["group_id"], name: "index_animals_on_group_id"
     t.index ["user_id"], name: "index_animals_on_user_id"
   end
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(version: 20170127143959) do
     t.string   "name"
     t.string   "description"
     t.integer  "owner_id"
-    t.integer  "organization_id", default: 0
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "groups_group_roles", id: false, force: :cascade do |t|

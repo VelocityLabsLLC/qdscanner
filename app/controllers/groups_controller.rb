@@ -19,16 +19,17 @@ class GroupsController < ApplicationController
     if @group.save
       @user.add_role("creator", @group)
       flash[:success] = "Group created!"
-      redirect_to group_path(id: @group.id)
+      redirect_to group_path(group_id: @group.id)
     else
-      flash[:success] = "Failed to create group!"
+      flash[:danger] = "Failed to create group!"
       render action: :new
     end
   end
   
   def show
+    @group = Group.find(params[:group_id])
     @users = @group.users
-    @owner = User.find_by(id: @group.owner_id)
+    @owner = User.find(@group.owner_id)
   end
 
   def update
@@ -44,7 +45,7 @@ class GroupsController < ApplicationController
     # add users to group
     @user = User.find ( params[:user_id] )
     # Check if user is already a member of the group
-    unless @user.groups.exists?( params[:id] )
+    unless @user.groups.exists?( params[:group_id] )
       # Shovel group into users to add a Membership record reference
       @user.groups << @group
       # Check if Membership record exists now
@@ -52,15 +53,15 @@ class GroupsController < ApplicationController
         flash[:success] = "Group added!"
         @user.add_role(:default_role, @group )
         # Redirect user group page
-        redirect_to group_path(id: params[:id] )
+        redirect_to group_path(id: params[:group_id] )
       else
         flash[:danger] = "Failed to add group please try again!"
-        render group_path(id: params[:id] )
+        render group_path(id: params[:group_id] )
       end
     else
       flash[:danger] = "You already belong to this group!"
       # Redirect user to group page
-      redirect_to group_path( id: params[:id] )
+      redirect_to group_path( id: params[:group_id] )
     end
   end
   

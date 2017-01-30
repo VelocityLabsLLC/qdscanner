@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1 class="text-center">Researchers in Group <strong><%=Group.find(params[:id])%></strong></h1>
-      <p class="text-center">All created research groups.</p>
+      <h1 class="text-center">Researchers in Group <strong><%=Group.find(params[:group_id]).name%></strong></h1>
       <ul class="list-unstyled">
         <% @users.each do |user| %>
           <li>
@@ -16,19 +15,23 @@
         <% end %>
         <% if can? :update, @group %>
           <div class="row text-center">
-            <%#= link_to "Add/remove users in group", edit_group_path(:id => @group.id), class: 'btn btn-primary btn-lg' %>
+            <%#= link_to "Add/remove users in group", edit_group_path(:group_id => @group.id), class: 'btn btn-primary btn-lg' %>
             <br/>
           </div>
         <% end %>
         <% if current_user.groups.exists?( @group.id ) %>
           <div class="row text-center">
             <br/>
-            <%= button_to "Leave Group", remove_user_group_path(:id => @group.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+            <%= button_to "Leave Group", remove_user_group_path(:group_id => @group.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
           </div>
         <% else %>
-          <%= link_to "Join Group", add_user_group_path(:id => @group.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+          <%= link_to "Join Group", add_user_group_path(:group_id => @group.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
         <% end %>
       </ul>
+      <br/>
+      <div class="text-center">
+        <%= link_to "View Animals in Group", group_animals_path(:group_id => @group.id), class: 'btn btn-primary btn-lg' %>
+      </div>
     </div>
   </div>
 </div>

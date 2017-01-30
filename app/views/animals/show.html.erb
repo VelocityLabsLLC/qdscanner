@@ -3,12 +3,18 @@
     <div class="col-md-6 col-md-offset-3">
       <div class="well animal-block">
         <h3>Animal Information</h3>
-        <%= @animal.organization %> <br/>
-        <%= @animal.group %> <br/>
-        <%= @animal.type %> <br/>
-        <%= @animal.strain %> <br/>
-        <%= @animal.location %> <br/>
-      </div>    
+        <p>
+          Organization: <%= @animal.organization.name %> <br/>
+          Group: <%= @animal.group.name %> <br/>
+          Owner: <%= @animal.user.email %> <br/>
+          <%= @animal.animal_type %> <br/>
+          <%= @animal.strain %> <br/>
+          <%= @animal.location %> <br/>
+        </p>
+        <div class="text-center">
+          <%= link_to "Edit Animal Information", edit_group_animal_path(group_id: params[:group_id], animal_id: params[:animal_id]), class: 'btn btn-lg btn-info'%>
+        </div>
+      </div>
     </div>
   </div>
 </div>

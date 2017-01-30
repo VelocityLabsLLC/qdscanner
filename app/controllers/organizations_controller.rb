@@ -27,9 +27,9 @@ class OrganizationsController < ApplicationController
   end
   
   def show
-    @organization = Organization.find( params[:id] )
+    @organization = Organization.find( params[:organization_id] )
     @groups = @organization.groups
-    @owner = User.find_by(id: @organization.owner_id)
+    @owner = User.find(@organization.owner_id)
   end
   
   def update
@@ -44,20 +44,20 @@ class OrganizationsController < ApplicationController
     # add users to organization
     @user = User.find ( params[:user_id] )
     unless @user.organization
-      @user.organization_id = params[:id]
+      @user.organization_id = params[:organization_id]
       if @user.save
         flash[:success] = "Organization added!"
         @user.add_role(:default_role, @organization )
         # Redirect user organization page
-        redirect_to organization_path(id: params[:id] )
+        redirect_to organization_path(organization_id: params[:organization_id] )
       else
         flash[:danger] = "Failed to add organization please try again!"
-        render organization_path(id: params[:id] )
+        render organization_path(organization_id: params[:organization_id] )
       end
     else
       flash[:danger] = "You already belong to an organization!"
       # Redirect user to their profile page
-      redirect_to organization_path(id: @user.organization_id )
+      redirect_to organization_path(organization_id: @user.organization_id )
     end
   end
   
