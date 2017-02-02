@@ -15,7 +15,7 @@ class AnimalsController < ApplicationController
     if @animal.save
       current_user.add_role("owner", @animal)
       flash[:success] = "Animal added!"
-      redirect_to animals_path(animal_id: params[:animal_id])
+      redirect_to group_animals_path(group_id: params[:group_id])
     else
       flash[:danger]="Error please try again"
       render action: :new

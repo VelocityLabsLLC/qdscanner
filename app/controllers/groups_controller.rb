@@ -42,10 +42,11 @@ class GroupsController < ApplicationController
   
   # Add a user to the group
   def add_user
-    # add users to group
+    # Grab user and group
     @user = User.find ( params[:user_id] )
+    @group = Group.find ( params[:group_id] )
     # Check if user is already a member of the group
-    unless @user.groups.exists?( params[:group_id] )
+    unless @user.groups.exists?( @group )
       # Shovel group into users to add a Membership record reference
       @user.groups << @group
       # Check if Membership record exists now

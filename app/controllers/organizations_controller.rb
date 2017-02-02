@@ -42,10 +42,10 @@ class OrganizationsController < ApplicationController
   
   def add_user
     # add users to organization
+    @organization=Organization.find( params[:organization_id] )
     @user = User.find ( params[:user_id] )
-    unless @user.organization
-      @user.organization_id = params[:organization_id]
-      if @user.save
+    if @user.organization_id==1
+      if @user.update(organization_id: params[:organization_id])
         flash[:success] = "Organization added!"
         @user.add_role(:default_role, @organization )
         # Redirect user organization page

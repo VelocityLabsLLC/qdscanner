@@ -29,9 +29,9 @@
         <br/>
         <div class="text-center">
           <% if current_user.organization==@organization %>
-            <%= button_to "Leave organization", remove_user_organization_path(:id => @organization.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+            <%= button_to "Leave organization", remove_user_organization_path(:user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
           <% else %>
-            <%= link_to "Join organization", add_user_organization_path(:id => @organization.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+            <%= link_to "Join organization", add_user_organization_path(:organization_id => @organization.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
           <% end %>
         </div>
       </ul>
