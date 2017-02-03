@@ -4,3 +4,5 @@ User requests to join group in profile
 * User enters email of group admin
 * Mail sent to group admin informing of requests
 * Group admin must log on and approve requests
+
+Create a function to assign :admin to groups in organization

@@ -54,21 +54,22 @@ class GroupsController < ApplicationController
         flash[:success] = "Group added!"
         @user.add_role(:default_role, @group )
         # Redirect user group page
-        redirect_to group_path(id: params[:group_id] )
+        redirect_to group_path( group_id: params[:group_id] )
       else
         flash[:danger] = "Failed to add group please try again!"
-        render group_path(id: params[:group_id] )
+        render group_path( group_id: params[:group_id] )
       end
     else
       flash[:danger] = "You already belong to this group!"
       # Redirect user to group page
-      redirect_to group_path( id: params[:group_id] )
+      redirect_to group_path( group_id: params[:group_id] )
     end
   end
   
   # Remove a user from the group
   def remove_user
     @user = User.find( params[:user_id] )
+    @group = Group.find(params[:group_id] )
     # Check if user is a creator or admin
     # Place holder has to be there for query to work
     if @user.has_any_role? :place_holder , { :name => :creator, :resource => @group }, { :name => :admin, :resource => @group }
@@ -79,7 +80,7 @@ class GroupsController < ApplicationController
         puts "User is the only admin in group"
         # If there are no other admins redirect to organization page and flash error
         flash[:danger] = "Please add another admin to the group before you leave!"
-        return redirect_to group_path(@group.id)
+        return redirect_to group_path( group_id: params[:group_id] )
       else
         puts "User is not the only admin in org"
       end
@@ -88,6 +89,8 @@ class GroupsController < ApplicationController
     # Proceed with deleting Membership association and instance roles
     @group.users.delete(@user)
     remove_instance_roles
+    flash[:success] = "You have left the group!"
+    redirect_to group_path( group_id: params[:group_id] )
   end
   
   private

@@ -10,15 +10,21 @@
                 <%= link_to group_animal_path(group_id: params[:group_id], animal_id: animal.id) do %>
                   <h2><%= animal.animal_type %> <%= animal.strain %> <%= animal.location %> <%= animal.status %></h2>
                 <% end %>
-                <%= button_to "Remove Animal", group_animal_path(group_id: params[:group_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                <div>
+                <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) %>
+                  <%= button_to "Remove Animal", group_animal_path(group_id: params[:group_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                <% end %>
+                </div>
               </div>
             </div>
           </li>
         <% end %>
         <br/>
-        <div class="text-center">
-          <%= link_to "Add Animals to Group", new_group_animal_path, class: 'btn btn-success btn-lg' %>
-        </div>
+        <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) %>
+          <div class="text-center">
+            <%= link_to "Add Animals to Group", new_group_animal_path, class: 'btn btn-success btn-lg' %>
+          </div>
+        <% end %>
       </ul>
     </div>
   </div>

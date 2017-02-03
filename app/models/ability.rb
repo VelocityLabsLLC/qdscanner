@@ -8,17 +8,14 @@ class Ability
     user ||= User.new # guest user (not logged in)
     
     alias_action :create, :read, :update, :destroy, to: :crud
-    alias_action :add_user, :remove_user, to: :update_users
+    alias_action :add_user, :remove_user, to: :update_user
+    
+    # Group access from organization
     
     # If the user is in an org, they can view their org's groups
-    if user.organization_id!=1
-      can :read, Group, organization_id: user.organization.id
-      can :add_user, Group, organization_id: user.organization.id
-    else
-      # Everyone not in an org sees unaffiliated Groups (actually in org 1 "None")
-      can :read, Group, organization_id: 1
-      can :add_user, Group, organization_id: 1
-    end
+    can :read, Group, organization_id: user.organization.id
+    # And can add of remove self from group in their org
+    can :update_user, Group, organization_id: user.organization.id
     
     # If User has global group_creator, can read :new action and create Groups
     if user.has_role? :group_creator
@@ -29,17 +26,27 @@ class Ability
     end
     
     # Group instance roles
+    # can :manage, Group, :id => user.roles.where(name: "creator", resource_type: "Group").pluck(:resource_id)
+    # can :crud, Group, :id => user.roles.where(name: "admin", resource_type: "Group").pluck(:resource_id)
     
-    # can :manage, Group, :id => Group.with_role(:creator, user).pluck(:id)
-    # can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
-    # can :update_users, Group, :id => Group.with_role(:admin, user).pluck(:id)
-    # can :remove_users, Group, :id => Group.with_role(:tech, user).pluck(:id)
-    # can :remove_users, Group, :id => Group.with_role(:default_role, user).pluck(:id)
+    # # Self Group add roles
+    # can :update_users, Group, :id => user.roles.where(name: "admin", resource_type: "Group").pluck(:resource_id)
+    # can :remove_users, Group, :id => user.roles.where(name: "tech", resource_type: "Group").pluck(:resource_id)
+    # can :remove_users, Group, :id => user.roles.where(name: "default_role", resource_type: "Group").pluck(:resource_id)
     
-    # can :manage, Animal, :id => Group.with_role(:creator, user).pluck(:id)
-    # can :crud, Animal, :id => Group.with_role(:admin, user).pluck(:id)
-    # can :crud, Group, :id => Group.with_role(:tech, user).pluck(:id)
-    # can :read, Group, :id => Group.with_role(:default_role, user).pluck(:id)
+    # # can :manage, Animal, group: { group_id: user.roles.where(name: "creator", resource_type: "Group").pluck(:resource_id) }
+    # can :manage, Animal do |animal|
+    #   user.roles.where(name: "creator", resource_type: "Group").pluck(:resource_id).include? animal.group_id
+    # end
+    # can :crud, Animal, :id => user.roles.where(name: "admin", resource_type: "Group").pluck(:resource_id)
+    # can :crud, Animal, :id => user.roles.where(name: "tech", resource_type: "Group").pluck(:resource_id)
+    # can :read, Animal, :id => user.roles.where(name: "default_role", resource_type: "Group").pluck(:resource_id)
+    
+    # can :manage, Animal, :group_id => Organization.with_role(:creator, group).pluck(:id)
+    # can :crud, Animal, :group_id => Group.with_role(:admin, user).pluck(:id)
+    # can :crud, Animal, :group_id => Group.with_role(:tech, user).pluck(:id)
+    # can :read, Animal, :group_id => Group.with_role(:default_role, user).pluck(:id)
+    
     
     # can :create, User, membership: {group: {CONDITION_ON_GROUP} }
     
@@ -63,6 +70,11 @@ class Ability
           can :remove_user, group
           can :read, Animal, :group_id => group.id
         end
+        
+        if group.has_role?(:admin, user.organization)
+          can :manage, group
+          can :manage, Animal, :group_id => group.id
+        end
       end
     end
     
@@ -77,8 +89,7 @@ class Ability
       can :manage, Organization, owner_id: user.id
     elsif user.has_role?(:admin, user.organization)
       can :crud, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
-      can :add_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
-      can :remove_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
+      can :update_user, Organization, :id => Organization.with_role(:admin, user).pluck(:id)
     elsif user.has_role?(:default_role, user.organization)
       # can remove a user from organization if they have one
       can :remove_user, user.organization
@@ -96,11 +107,11 @@ class Ability
   #   alias_action :create, :read, :update, :destroy, to: :crud
     
   #   if group.has_role? :admin
-  #     # can :read, Animal, within organization
+  #     can :manage, Animal, :organization_id => Organization.pluck(:id)
   #   elsif group.has_role? :vet
-  #     # can :read, Animal, within organization
+  #     can :manage, Animal, :organization_id => Organization.pluck(:id)
   #   else
-  #     # can :read, Animal, within group
+  #     can :read, Animal, :group_id => Group.pluck(:id)
   #   end
   # end
 
