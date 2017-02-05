@@ -40,8 +40,9 @@ body {
 h1, h2, h3 {
   font-family: 'Open Sans', sans-serif;
 }
+
 // Nav Styles
-.navbar {
+.navbar-static-top {
   @include background-gradient;
   border:none;
 }
@@ -63,6 +64,7 @@ h1, h2, h3 {
 .navbar-default .navbar-toggle .icon-bar {
   background-color: white;
 }
+
 .navbar-default .navbar-toggle {
   border: 2px solid white;
   &:hover, &:focus {

@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1 class="text-center">Researchers in Group <strong><%=Group.find(params[:group_id]).name%></strong></h1>
+      <ul class="list-unstyled">
+        <% @users.each do |user| %>
+          <li>
+            <div class="well row <%= cycle('white-bg','') %>">
+              <% if user==@owner %>
+                <h2>Owner</h2>
+              <% end %>
+              <h3><%= user.email %></h3>
+            </div>
+          </li>
+        <% end %>
+        <% if can? :update, @group %>
+          <div class="row text-center">
+            <%#= link_to "Add/remove users in group", edit_group_path(:group_id => @group.id), class: 'btn btn-primary btn-lg' %>
+            <br/>
+          </div>
+        <% end %>
+        <% if current_user.groups.exists?( @group.id ) %>
+          <div class="row text-center">
+            <br/>
+            <%= button_to "Leave Group", remove_user_group_path(:group_id => @group.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+          </div>
+        <% else %>
+          <%= link_to "Join Group", add_user_group_path(:group_id => @group.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <% end %>
+      </ul>
+      <br/>
+     <div data-role="main" class="ui-content">
+    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Show Popup Form</a>
+
+    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+      <form method="post" action="demoform.asp">
+        <div>
+          <h3>Login information</h3>
+          <label for="usrnm" class="ui-hidden-accessible">Username:</label>
+          <input type="text" name="user" id="usrnm" placeholder="Username">
+          <label for="pswd" class="ui-hidden-accessible">Password:</label>
+          <input type="password" name="passw" id="pswd" placeholder="Password">
+          <label for="log">Keep me logged in</label>
+          <input type="checkbox" name="login" id="log" value="1" data-mini="true">
+          <input type="submit" data-inline="true" value="Log in">
+        </div>
+      </form>
+    </div>
+  </div>
+    </div>
+  </div>
+</div>

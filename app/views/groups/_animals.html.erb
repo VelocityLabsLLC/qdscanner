@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1 class="text-center">Animals in group <%=@group.name%></h1>
+      <% unless @animals.empty? %>
+        <ul class="list-unstyled">
+          <% @animals.each do |animal| %>
+            <li>
+              <div class="well row <%= cycle('white-bg','') %>">
+                <div class="col-md-2">
+                  <%= link_to group_animal_path(group_id: params[:group_id], animal_id: animal.id) do %>
+                    <h2>ID</h2>
+                  <% end %>
+                </div>
+                <div class="col-md-2">
+                  <h2><%= animal.animal_type %></h2>
+                </div>
+                <div class="col-md-2">
+                  <h2><%= animal.strain %></h2>
+                </div>
+                <div class="col-md-2">
+                  <h2><%= animal.location %></h2>
+                </div>
+                <div class="col-md-2">
+                  <h2><%= animal.status %></h2>
+                </div>
+                <div class="col-md-2">
+                  <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                    <%= button_to "Remove Animal", group_animal_path(group_id: params[:group_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <br/>
+          <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+            <div class="text-center">
+              <%= link_to "Add Animals to Group", new_group_animal_path, class: 'btn btn-success btn-lg' %>
+            </div>
+          <% end %>
+        </ul>
+      <% else %>
+        <h3> There are no animals in this group. </h3>
+      <% end %>
+    </div>
+  </div>
+</div>
