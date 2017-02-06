@@ -72,8 +72,8 @@ class Ability
         end
         
         if group.has_role?(:admin, user.organization)
-          can :manage, group
-          can :manage, Animal, :group_id => group.id
+          can :manage, Group, :id => group.id
+          can :manage, Animal, :group => { :organization_id => user.organization.id }
         end
       end
     end

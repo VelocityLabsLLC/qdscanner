@@ -1,7 +1,7 @@
 <%= form_for([@group, @animal]) do |f| %>
-  
+  <h1><%=@group.name%></h1>
   <%= f.hidden_field :user_id, :value => current_user.id %>
-  
+  <%= f.hidden_field :group_id, :value => params[:group_id] %>
   <div class="form-group">
     <%= f.label :animal_type, "Animal Type" %>
     <%= f.select :animal_type, options_for_select(animal_types), class: 'form-control' %>
@@ -22,3 +22,6 @@
     <%= f.submit 'Add Animal to Group', class: 'btn btn-success' %>
   </div>
 <% end %>
+<h1>cans</h1>
+<%= can? :manage, Group, :id => @group.id %></br>
+<%= can? :create, Animal, :group_id => @group.id %>

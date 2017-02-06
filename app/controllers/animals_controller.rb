@@ -1,6 +1,7 @@
 class AnimalsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :group
+  load_and_authorize_resource :animal, :through => :group, :shallow => true
   
   def index
     @group = Group.find( params[:group_id] )
@@ -8,12 +9,22 @@ class AnimalsController < ApplicationController
   end
   
   def new
-    @animal = Animal.new
-    @group = Group.find(params[:group_id])
+    # @animal = Animal.new
+    # @group = Group.find(params[:group_id])
   end
   
   def create
+    puts "------------------------------------------------------------------------------------------------"
+    puts "CanCan Group id: #{@group.id}"
+    puts "Html group_id: #{params[:group_id]}"
+    puts "Animal params group_id: #{params[:animal][:animal_type]}"
+    
+    puts "Animal_params: #{params[:animal]}"
+    
+    @animal = Animal.new(animal_params)
     if @animal.save
+      puts "Animal saved in group_id: #{animal_params[:group_id]}"
+      puts "--------------------------------------------------------------------------------------------------------"
       current_user.add_role("owner", @animal)
       flash[:success] = "Animal added!"
       redirect_to group_animals_path(group_id: params[:group_id])
