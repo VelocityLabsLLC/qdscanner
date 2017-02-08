@@ -32,8 +32,6 @@
           <%= link_to "Create a Group", new_group_path, class: 'btn btn-primary btn-lg' %>
         </div>
       <% end %>
-      <%= can? :manage, Group, :organization => { :id => current_user.organization.id } %>
-      <%= can? :read, Group.new, :organization => { :id => current_user.organization.id } %>
     </div>
   </div>
 </div>
