@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20170127143959) do
 
   create_table "animals", force: :cascade do |t|
+    t.string   "identifier"
     t.string   "animal_type"
     t.string   "strain"
     t.string   "location"

@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1 class="text-center">Researchers in Organization <strong><%=Organization.find(params[:organization_id]).name%></strong></h1>
+      <ul class="list-unstyled">
+        <% @users.each do |user| %>
+          <li>
+            <div class="well row <%= cycle('white-bg','') %>">
+              <div class="col-md-3">
+                <% if user.profile %>
+                  <%= link_to user.email, user_path(user_id: user.id), class: 'btn' %>
+                <% else %>
+                  <h5><%=user.email%></h5>
+                <% end %>
+              </div>
+              <div class="col-md-3">
+                <% if user==@owner %>
+                  <h4>Owner</h4>
+                <% end %>
+                <h4><%=user_role_display(user)%></h4>
+              </div>
+              <% if current_user.has_role?(:creator, @organization) or current_user.has_role?(:admin, @organization) or !current_user.groups.with_role(:admin, @organization).empty? %>
+                <div class="col-md-3 text-center pull-right">
+                  <%= button_to "Remove from Organization", remove_user_organization_path(:organization_id => @organization.id, :user_id => user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger' %>
+                </div>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if current_user.organization==@organization %>
+          <div class="row text-center">
+            <br/>
+            <%= button_to "Leave Organization", remove_user_organization_path(:organization_id => @organization.id, :user_id => current_user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-lg' %>
+          </div>
+        <% else %>
+          <%= link_to "Join Organization", add_user_organization_path(:organization_id => @organization.id, :user_id => current_user.id), :method => :put, class: 'btn btn-primary btn-lg' %>
+        <% end %>
+      </ul>
+      <br/>
+    </div>
+  </div>
+</div>

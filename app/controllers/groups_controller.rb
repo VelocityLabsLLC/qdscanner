@@ -71,6 +71,15 @@ class GroupsController < ApplicationController
   def remove_user
     @user = User.find( params[:user_id] )
     @group = Group.find(params[:group_id] )
+    
+    # If removing self skip this check
+    unless @user=current_user
+      # If removing another, is the current user authorized?
+      unless can?(:update, @group)
+        flash[:danger] = "Not authorized to remove other users"
+        return redirect_to group_path( group_id: params[:group_id] )
+      end
+    end
     # Check if user is a creator or admin
     # Place holder has to be there for query to work
     if @user.has_any_role? :place_holder , { :name => :creator, :resource => @group }, { :name => :admin, :resource => @group }
@@ -90,7 +99,11 @@ class GroupsController < ApplicationController
     # Proceed with deleting Membership association and instance roles
     @group.users.delete(@user)
     remove_instance_roles
-    flash[:success] = "You have left the group!"
+    if current_user==@user
+      flash[:success] = "You have left the group!"
+    else
+      flash[:success] = "User have been removed from the group!"
+    end
     redirect_to group_path( group_id: params[:group_id] )
   end
   
@@ -107,28 +120,28 @@ class GroupsController < ApplicationController
     # Check if the user can create groups
     def can_create_group?
       if current_user.plan_id==1
-        if current_user.has_role? :group_creator
+        if can?(:create, Group)
           if over_group_creation_limit?
-            flash[:notice] = 'You have reached the group creation limit set by your organization!'
+            flash[:danger] = 'You have reached the group creation limit set by your organization!'
             redirect_to(root_url)
           end
         else
-          if current_user.organizations
-            flash[:notice] = 'You do not have access to group creation in this organization!'
+          unless current_user.organization==1
+            flash[:danger] = 'You do not have access to group creation in this organization!'
             redirect_to(plans_path)
           else
-            flash[:notice] = 'You must upgrade plan to create more groups!'
+            flash[:danger] = 'You must upgrade plan to create more groups!'
             redirect_to(plans_path)
           end
         end
       elsif current_user.plan_id==2
         if over_group_creation_limit?
-          flash[:notice] = 'You have reached your group creation limit, upgrade plan to create more groups!'
+          flash[:danger] = 'You have reached your group creation limit, upgrade plan to create more groups!'
           redirect_to(plans_path)
         end
       else
         if over_group_creation_limit?
-          flash[:notice] = 'You have reached your group creation limit, upgrade plan to create more groups!'
+          flash[:danger] = 'You have reached your group creation limit, upgrade plan to create more groups!'
           redirect_to(plans_path)
         end
       end

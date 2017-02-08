@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1 class="text-center">Groups in Organization <%=@organization.name%></h1>
+      <% unless @groups.empty? %>
+        <ul class="list-unstyled">
+          <% @groups.each do |group| %>
+            <li>
+              <div class="well row <%= cycle('white-bg','') %>">
+                <div class="col-md-4">
+                  <%= link_to group.name, group_path(group_id: group.id), class: 'btn' %>
+                </div>
+                <div class="col-md-1 text-center">
+                  <% if group.has_role?(:admin, @organization) %>
+                    <h4>Admin</h4>
+                  <% end %>
+                </div>
+                <div class="col-md-3 text-center">
+                  <% if current_user.has_role?(:creator, @organization) or current_user.has_role?(:admin, @organization) or current_user.has_role?(:creator, group) or !current_user.groups.with_role(:admin, @organization).empty? %>
+                    <%= link_to "Edit", edit_group_path(group_id: group.id), class: 'btn btn-info' %>
+                  <% end %>
+                  <% if current_user.has_role?(:creator, @organization) or current_user.has_role?(:admin, @organization) or current_user.has_role?(:creator, group) or !current_user.groups.with_role(:admin, @organization).empty? %>
+                    <%= button_to "Delete", group_path(group_id: group.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h3> There are no groups in this organization. </h3>
+      <% end %>
+      <br/>
+      <% if can?(:create, Group)%>
+        <div class="text-center">
+          <%= link_to "Create a Group", new_group_path, class: 'btn btn-primary btn-lg' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

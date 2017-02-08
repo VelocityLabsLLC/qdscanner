@@ -14,17 +14,8 @@ class AnimalsController < ApplicationController
   end
   
   def create
-    puts "------------------------------------------------------------------------------------------------"
-    puts "CanCan Group id: #{@group.id}"
-    puts "Html group_id: #{params[:group_id]}"
-    puts "Animal params group_id: #{params[:animal][:animal_type]}"
-    
-    puts "Animal_params: #{params[:animal]}"
-    
     @animal = Animal.new(animal_params)
     if @animal.save
-      puts "Animal saved in group_id: #{animal_params[:group_id]}"
-      puts "--------------------------------------------------------------------------------------------------------"
       current_user.add_role("owner", @animal)
       flash[:success] = "Animal added!"
       redirect_to group_animals_path(group_id: params[:group_id])
@@ -62,7 +53,7 @@ class AnimalsController < ApplicationController
   
   private
     def animal_params
-      params.require(:animal).permit(:animal_type, :strain, :location, :status, :group_id, :user_id)
+      params.require(:animal).permit(:identifier, :animal_type, :strain, :location, :status, :group_id, :user_id)
     end
   
 end

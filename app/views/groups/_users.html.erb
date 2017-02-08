@@ -1,27 +1,28 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
       <h1 class="text-center">Researchers in Group <strong><%=Group.find(params[:group_id]).name%></strong></h1>
       <ul class="list-unstyled">
         <% @users.each do |user| %>
           <li>
             <div class="well row <%= cycle('white-bg','') %>">
-              <div class="col-md-2">
-                <h3><%= user.email %></h3>
+              <div class="col-md-3">
+                <h4><%= user.email %></h4>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <% if user==@owner %>
                 <% end %>
-                <h3><%=user_role_display(user)%></h3>
+                <h4><%=user_role_display(user)%></h4>
               </div>
+              <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                <div class="col-md-3 text-center pull-right">
+                  <!--<div class="text-center">-->
+                    <%= button_to "Remove from Group", remove_user_group_path(:group_id => @group.id, :user_id => user.id), data: { confirm: "Are you sure?" }, :method => :delete, class: 'btn btn-danger' %>
+                  <!--</div>-->
+                </div>
+              <% end %>
             </div>
           </li>
-        <% end %>
-        <% if can? :update, @group %>
-          <div class="row text-center">
-            <%#= link_to "Add/remove users in group", edit_group_path(:group_id => @group.id), class: 'btn btn-primary btn-lg' %>
-            <br/>
-          </div>
         <% end %>
         <% if current_user.groups.exists?( @group.id ) %>
           <div class="row text-center">
@@ -33,24 +34,6 @@
         <% end %>
       </ul>
       <br/>
-<!--     <div data-role="main" class="ui-content">-->
-<!--    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Show Popup Form</a>-->
-
-<!--    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">-->
-<!--      <form method="post" action="demoform.asp">-->
-<!--        <div>-->
-<!--          <h3>Login information</h3>-->
-<!--          <label for="usrnm" class="ui-hidden-accessible">Username:</label>-->
-<!--          <input type="text" name="user" id="usrnm" placeholder="Username">-->
-<!--          <label for="pswd" class="ui-hidden-accessible">Password:</label>-->
-<!--          <input type="password" name="passw" id="pswd" placeholder="Password">-->
-<!--          <label for="log">Keep me logged in</label>-->
-<!--          <input type="checkbox" name="login" id="log" value="1" data-mini="true">-->
-<!--          <input type="submit" data-inline="true" value="Log in">-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+    </div>
+  </div>
+</div>

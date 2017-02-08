@@ -6,21 +6,34 @@
         <% @animals.each do |animal| %>
           <li>
             <div class="well row <%= cycle('white-bg','') %>">
-              <div>
-                <%= link_to group_animal_path(group_id: params[:group_id], animal_id: animal.id) do %>
-                  <h2><%= animal.animal_type %> <%= animal.strain %> <%= animal.location %> <%= animal.status %></h2>
+              <div class="col-md-1 text-center">
+                <h4><%=animal.identifier%></h4>
+              </div>
+              <div class="col-md-1 text-center">
+                <h4><%= animal.animal_type %></h4>
+              </div>
+              <div class="col-md-2 text-center">
+                <h4><%= animal.strain %></h4>
+              </div>
+              <div class="col-md-3 text-center">
+                <h4><%= animal.location %></h4>
+              </div>
+              <div class="col-md-2 text-center">
+                <h4><%= animal.status %></h4>
+              </div>
+              <div class="col-md-3 text-center">
+                <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                  <%= link_to "Edit", group_animal_path(group_id: params[:group_id], animal_id: animal.id) %>
                 <% end %>
-                <div>
-                <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) %>
-                  <%= button_to "Remove Animal", group_animal_path(group_id: params[:group_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                  <%= button_to "Delete", group_animal_path(group_id: params[:group_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
                 <% end %>
-                </div>
               </div>
             </div>
           </li>
         <% end %>
         <br/>
-        <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) %>
+        <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
           <div class="text-center">
             <%= link_to "Add Animals to Group", new_group_animal_path, class: 'btn btn-success btn-lg' %>
           </div>

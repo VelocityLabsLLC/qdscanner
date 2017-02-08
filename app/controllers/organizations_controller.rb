@@ -30,6 +30,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find( params[:organization_id] )
     @groups = @organization.groups
     @owner = User.find(@organization.owner_id)
+    @users=@organization.users
   end
   
   def update
@@ -64,6 +65,7 @@ class OrganizationsController < ApplicationController
   def remove_user
     # Place holder has to be there for query to work
     @user = User.find( params[:user_id] )
+    @organization = Organization.find( params[:organization_id] )
     if @user.has_any_role? :place_holder , { :name => :creator, :resource => @organization }, { :name => :admin, :resource => @organization }
       puts "User is an admin"
       # user is an admin
@@ -80,6 +82,9 @@ class OrganizationsController < ApplicationController
     # There is an alternate admin if method did not return yet
     @organization.users.delete(@user)
     remove_instance_roles
+    @user.update(organization_id: params[:organization_id])
+    flash[:success] = "User removed from organization!"
+    redirect_back(fallback_location: fallback_location)
   end
   
   private
