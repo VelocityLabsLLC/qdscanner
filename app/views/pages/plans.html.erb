@@ -1,1 +1,54 @@
-<%= render 'plan_table' %>
+<div class="container home-signup-links">
+  <% if user_signed_in? %>
+   
+  <% else %>
+    <div class="row user-not-signed-in">
+      <div class="col-md-4">
+        <div class="well">
+          <h2 class="text-center">Basic Membership</h2>
+          <h4 class="text-center">Sign up for free to purchase products or join existing groups.</h4>
+          <br/>
+          <%= link_to "Sign up with Basic", new_user_registration_path(plan: @basic_plan.id), class: 'btn btn-primary btn-lg btn-block' %>
+          <br/>
+          <ul>
+            <li>Purchase items in shop</li>
+            <li>Join existing groups and organizations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="well">
+          <h2 class="text-center">Premium Membership</h2>
+          <h4 class="text-center">Sign up for the premium account to create a group ($10/month).</h4>
+          <br/>
+          <%= link_to "Sign up with Premium", new_user_registration_path(plan: @premium_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+          <br/>
+          <ul>
+            <li>Purchase items in shop</li>
+            <li>Create a small group</li>
+            <li>Regulate user access</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="well">
+          <h2 class="text-center">Pro Membership</h2>
+          <h4 class="text-center">Sign up for the organization account to create an organization ($100/month).</h4>
+          <br/>
+          <%= link_to "Sign up with Pro", new_user_registration_path(plan: @pro_plan.id), class: 'btn btn-success btn-lg btn-block' %>
+          <br/>
+          <ul>
+            <li>Purchase items in shop</li>
+            <li>Create an organization</li>
+            <li>Unlimited groups within organization</li>
+            <li>Regulate group access to other groups within organization</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% unless current_user %>
+  <%#= render 'plan_table' %>
+<% end %>

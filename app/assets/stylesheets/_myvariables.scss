@@ -11,3 +11,7 @@
   margin-top: -14px;
   color: $color;
 }
+
+@mixin video-overlay {
+  background-color: rgba(25,25,25,.5);
+}

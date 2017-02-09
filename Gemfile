@@ -51,6 +51,9 @@ gem 'cancancan'
 # Use rolify for authorization
 gem 'rolify'
 
+# Unslider for jquery slider library
+# gem 'jquery-unslider-rails'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

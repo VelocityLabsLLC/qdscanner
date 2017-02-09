@@ -11,8 +11,12 @@
   </head>
   <body>
     <div class="page">
-      <nav class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class='container'>
+      <% if controller?("pages") and action?("home") and !user_signed_in? %>
+      <nav class="navbar navbar-default navbar-static-top navbar-transparent" role="navigation">
+      <% else %>
+      <nav class="navbar navbar-default navbar-static-top navbar-color" role="navigation">
+      <% end %>
+        <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
               <span class="sr-only">Toggle navigation</span>
@@ -56,7 +60,7 @@
           <%= content_tag :div, msg, class: "alert alert-#{type}" %>
         <% end %>
       </div>
-    
+      
       <%= yield %>
       
       <footer class="footer">

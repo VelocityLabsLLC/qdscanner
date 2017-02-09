@@ -1,12 +1,41 @@
-@import 'variables';
+@import 'myvariables';
 
+// Background Video
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.fullscreen-bg__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 // Home Page Styles
+
 .home-callout {
-  @include background-gradient;
-  color: white;
+  // @include background-gradient;
+  height: 100vh;
+  color: #fff;
+  font-size: 3em;
   margin-top: -20px;
-  padding-top: 50px;
+  padding-top: 100px;
   padding-bottom: 100px;
+  @include video-overlay;
+}
+
+.home-callout .content {
+  padding-top: 20vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .home-signup-links {
@@ -14,7 +43,26 @@
 }
 
 .home-user-signed-in {
-    padding-top: 50px;
+  padding-top: 50px;
+}
+
+// Unslider Styles
+.sliders {
+  padding-top: 20px;
+  background: gray;
+  .banner { 
+  	position: relative; 
+    overflow: auto; 
+  }
+     
+  .banner li { 
+  	list-style: none; 
+  }
+  
+  .banner ul li { 
+  	float: left; 
+  }
+
 }
 
 //About Page Styles
@@ -188,4 +236,37 @@
     height: 30px;
     width: 100%;
     border-bottom: none
+}
+
+// Background Video Media
+@media (min-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .fullscreen-bg {
+    background: url('../img/videoframe.jpg') center center / cover no-repeat;
+  }
+
+  .fullscreen-bg__video {
+    display: none;
+  }
+  
+  .home-callout {
+    color: #000;
+    font-size: 1em;
+    margin-top: -20px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
 }

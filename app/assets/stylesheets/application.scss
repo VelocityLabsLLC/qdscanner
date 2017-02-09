@@ -18,8 +18,9 @@
 @import 'bootstrap';
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
-@import 'variables';
+@import 'unslider';
+@import 'unslider-dots';
+@import 'myvariables';
 
 html,
 body {
@@ -42,9 +43,14 @@ h1, h2, h3 {
 }
 
 // Nav Styles
-.navbar-static-top {
+.navbar-transparent {
+  @include video-overlay;
+  border: none;
+}
+
+.navbar-color {
   @include background-gradient;
-  border:none;
+  border: none;
 }
 
 .navbar-brand {
