@@ -1,0 +1,36 @@
+<div class="row home-user-signed-in">
+  <div class="col-md-6">
+    <div class="well">
+      <h2 class="text-center">Your Profile</h2>
+      <% if current_user.profile %>
+        <%= link_to "Edit your profile", edit_user_profile_path(user_id: current_user.id), class: 'btn btn-default btn-lg btn-block' %>
+        <%= link_to "View your profile", user_path(user_id: current_user.id), class: 'btn btn-default btn-lg btn-block' %>
+      <% else %>
+        <p class="text-center">Create your profile so that you can join a group.</p>
+        <%= link_to "Create your profile", new_user_profile_path(user_id: current_user.id), class: 'btn btn-default btn-lg btn-block' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="well">
+      <% if current_user.organization_id!=1 %>
+        <%= link_to "View Organization", organization_path(organization_id: current_user.organization_id), class: 'btn btn-default btn-lg btn-block' %>
+      <% else %>
+        <% if current_user.plan_id==3 %>
+          <%= link_to "Create an Organization", new_organization_path, class: 'btn btn-default btn-lg btn-block' %>
+        <% else %>
+          <%= link_to "Join an Organization", organizations_path, class: 'btn btn-default btn-lg btn-block' %>
+        <% end %>
+      <% end %>
+      
+      <!-- check if plan 3 members made an organization yet, they must do this prior to group instantiation -->
+      <% unless current_user.groups.empty? %>
+        <%= link_to "View Groups", groups_path, class: 'btn btn-default btn-lg btn-block' %>
+      <% end %>
+      <% if current_user.has_role?(:group_creator) || current_user.has_role?(:organization_creator) %>
+        <%= link_to "Create a New Group", new_group_path, class: 'btn btn-default btn-lg btn-block' %>
+      <% end %>
+      <%= link_to "Join an Existing Group", groups_path, class: 'btn btn-default btn-lg btn-block' %>
+    </div>
+  </div>
+</div>

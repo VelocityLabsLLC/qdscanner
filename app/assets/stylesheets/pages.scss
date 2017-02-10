@@ -45,11 +45,42 @@
 .home-user-signed-in {
   padding-top: 50px;
 }
+// Selection
+.selection {
+  background: #000;
+  
+  .spacer {
+    height: 50px;
+  }
+  
+  .spacer2 {
+    border-bottom-style: solid;
+    border-bottom-color: gray;
+  }
+  
+  .selector {
+    li {
+      a:hover {
+        background-color: #000;
+      }
+    }
+    li.active > a {
+      background-color: #000 !important;
+    }
+  }
+}
 
+// Home Services
+
+.services {
+  height: 500px;
+  background-color: #000;
+}
 // Unslider Styles
 .sliders {
   padding-top: 20px;
-  background: gray;
+  background: #153649;
+  
   .banner { 
   	position: relative; 
     overflow: auto; 
@@ -255,7 +286,7 @@
 
 @media (max-width: 767px) {
   .fullscreen-bg {
-    background: url('../img/videoframe.jpg') center center / cover no-repeat;
+    background: url('Dnaframe.png') center center / cover no-repeat;
   }
 
   .fullscreen-bg__video {
@@ -263,7 +294,7 @@
   }
   
   .home-callout {
-    color: #000;
+    color: #fff;
     font-size: 1em;
     margin-top: -20px;
     padding-top: 100px;
