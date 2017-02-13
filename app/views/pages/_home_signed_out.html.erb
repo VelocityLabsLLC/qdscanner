@@ -1,7 +1,8 @@
-<div class="fullscreen-bg">
+
+<div class="home-callout container-fluid">
+  <div class="fullscreen-bg">
   <%= video_tag "Dna.mp4", loop: true, muted: true, autoplay: true, poster: 'Dnaframe.png', class: 'fullscreen-bg__video' %>
 </div>
-<div class="home-callout container-fluid">
   <div class="container text-center">
     <div class="content">
       <h1><strong>Welcome to Velocity Laboratories</strong></h1>
@@ -41,18 +42,26 @@
     </div>
   </div>
 </div>
-<div class="container-fluid sliders">
+<div class="container-fluid home-signupparent">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1 text-center">
-      <div class="banner">
-      	<ul>
-      		<li><%= image_tag 'slide1.gif', class:'home-slide' %></li>
-      		<li><%= image_tag 'slide2.gif', class:'home-slide2' %></li>
-      		<li><%= image_tag 'slide3.gif', class:'home-slide3' %></li>
-      		<li><%= image_tag 'slide4.gif', class:'home-slide4' %></li>
-      		<li><%= image_tag 'slide5.gif', class:'home-slide5' %></li>
-      	</ul>
-      </div>
+    <div class="text-center home-signupchild">
+      <%= link_to 'Sign Up', plans_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>
 </div>
+
+<!--<div class="container-fluid sliders">-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-10 col-md-offset-1 text-center">-->
+<!--      <div class="banner">-->
+<!--      	<ul>-->
+<!--      		<li><%#= image_tag 'slide1.gif', class:'home-slide' %></li>-->
+<!--      		<li><%#= image_tag 'slide2.gif', class:'home-slide2' %></li>-->
+<!--      		<li><%#= image_tag 'slide3.gif', class:'home-slide3' %></li>-->
+<!--      		<li><%#= image_tag 'slide4.gif', class:'home-slide4' %></li>-->
+<!--      		<li><%#= image_tag 'slide5.gif', class:'home-slide5' %></li>-->
+<!--      	</ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

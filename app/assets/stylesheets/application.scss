@@ -32,7 +32,7 @@ body {
 .page {
     box-sizing: border-box;
     min-height: 100%;
-    padding: 0 0 100px;
+    padding: 0 0 70px;
     position: relative;
 }
 
@@ -104,6 +104,7 @@ h1, h2, h3 {
   padding-top: 15px;
   font-weight: 500;
   font-size: 1.25em;
+  margin: 0;
   
   .footer-brand {
     font-family: 'Open Sans', sans-serif;
@@ -128,6 +129,10 @@ h1, h2, h3 {
 	  display: block;
 		width: 100%;
 		text-align: center;
+		bottom: 0;
 	}
 	
+	.page {
+	  padding-bottom: 110px;
+	}
 }
