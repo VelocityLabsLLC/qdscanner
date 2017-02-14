@@ -45,8 +45,8 @@
                 <% end %>
                 <li><%= link_to "My Account", edit_user_registration_path %></li>
               <% else %>
-                <%= link_to "Log In", new_user_session_path, class: "btn btn-default navbar-btn" %>
-                <%= link_to "Sign Up", plans_path, class: "btn navbar-btn hidden-md hidden-lg hidden-xl" %>
+                <li><%= link_to "Log In", new_user_session_path, class: "btn btn-default navbar-btn" %></li>
+                <li><%= link_to "Sign Up", plans_path, class: "btn btn-info navbar-btn hidden-md hidden-lg hidden-xl" %></li>
               <% end %>
             </ul>
           </div><!-- /.navbar-collapse -->
