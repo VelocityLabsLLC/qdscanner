@@ -93,6 +93,10 @@ h1, h2, h3 {
   @include alert(rgba(255,255,255,0.3), rgba(255,255,255,0.5), red);
 }
 
+.alert-info {
+  @include alert(rgba(255,255,255,0.3), rgba(255,255,255,0.5), blue);
+}
+
 .footer {
   bottom: 0;
   min-height: 70px;
@@ -120,8 +124,6 @@ h1, h2, h3 {
     }
   }
 }
-
-/* If you don't want the footer to be responsive, remove these media queries */
 
 @media (max-width: 1010px) {
 
