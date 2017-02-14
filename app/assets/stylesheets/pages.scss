@@ -49,28 +49,29 @@
 // ink-blue 062F4F
 // posy-purple 813772
 // embers-red B82601
-.selection {
-  background: #000;
-  
+.selection-outer {
+  background: #141414;
+  border-bottom: 1px solid #000;
   .spacer {
     height: 50px;
-  }
-  
-  .spacer2 {
-    border-bottom-style: solid;
-    border-bottom-color: gray;
   }
   
   .selector {
     li {
       color: #062F4F;
+      a {
+        color: #777;
+      }
+      
       a:hover {
-        background-color: #000;
-        color: #B82601;
+        background-color: #141414;
+        color: #FFF;
       }
     }
     li.active > a {
-      background-color: #000 !important;
+      background-color: #141414 !important;
+      border-bottom: 5px solid white;
+      border-radius: 0px;
     }
   }
 }
@@ -79,13 +80,29 @@
 
 .services {
   height: 500px;
-  background-color: #000;
+  background-color: #FFF;
+  .monitoring-text {
+    padding-top: 150px;
+    .btn {
+      margin-top: 100px;
+    }
+  }
+  .testing-text {
+    padding-top: 150px;
+    .btn {
+      margin-top: 100px;
+    }
+  }
 }
 
 // Sign up button
 .home-signupparent {
   height: 250px;
-  background-color: #000;
+  background-color: #141414;
+  
+  .btn {
+    margin-top: 100px;
+  }
 }
 // Unslider Styles
 .sliders {
