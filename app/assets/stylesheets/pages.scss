@@ -168,7 +168,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .fullscreen-bg {
     background: url('Dnaframe.png') center center / cover no-repeat;
   }
@@ -184,9 +184,7 @@
     padding-top: 100px;
     padding-bottom: 100px;
   }
-}
-
-@media (max-width: 992px) {
+  
 	.services {
 	  height: 500px;
 	  .monitoring-text {
