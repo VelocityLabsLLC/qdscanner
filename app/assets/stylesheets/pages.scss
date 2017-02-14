@@ -80,19 +80,25 @@
 // Home Services
 
 .services {
-  height: 500px;
+  height: 400px;
   background-color: #FFF;
   .monitoring-text {
-    padding-top: 150px;
+    padding-top: 60px;
     .btn {
-      margin-top: 100px;
+      margin-top: 60px;
     }
   }
+  .monitoring-image {
+    height: 400px;
+  }
   .testing-text {
-    padding-top: 150px;
+    padding-top: 60px;
     .btn {
-      margin-top: 100px;
+      margin-top: 60px;
     }
+  }
+  .testing-image {
+    height: 400px;
   }
 }
 
@@ -182,6 +188,24 @@
 
 @media (max-width: 992px) {
 	.services {
-	  height: 1000px;
+	  height: 500px;
+	  .monitoring-text {
+      padding-top: 50px;
+      .btn {
+        margin-top: 50px;
+      }
+    }
+    .monitoring-image {
+      height: 200px;
+    }
+    .testing-text {
+      padding-top: 0;
+      .btn {
+        margin-top: 50px;
+      }
+    }
+    .testing-image {
+      height: 200px;
+    }
 	}
 }
