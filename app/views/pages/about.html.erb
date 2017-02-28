@@ -1,26 +1,31 @@
-<div class="container-fluid text-center about-callout">
+<!--<div class="fullscreen-bg-about">-->
+
+<!--</div>-->
+<div class="container-fluid  about-callout">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h2>Why Velocity Laboratories?</h2>
-      <h4>Unique operant pain and addiction expertise</h4>
-      <p>As innovators in the development of operant pain assays, nobody knows more 
-      about the execution and interpretation of preclinical operant pain testing. With
-      over 20 years of experience in preclinical models of pain and addiction, 
-      <strong>Velocity Laboratories</strong> gives in-depth and thorough 
-      interpretations, placing your results in context to help you identify the most 
-      effective analgesic treatments with the least abuse liability.</p>
-      <h4>Extensive research and industry experience</h4>
-      <p>As a team of academics, researchers, and industry specialists, 
-      <strong>Velocity Laboratories</strong> delivers a reliable, accurate, and 
-      translational experience.</p>
+    <div class="col-md-7 col-md-offset-3">
+      <h1><strong>Velocity Laboratories brings innovative research technology to life</strong></h1>
     </div>
   </div>
 </div>
-
+<div class="container-fluid text-center about-description">
+  <div class="content row">
+    <div class="col-md-6 col-md-offset-3">
+    <p>Velocity Laboratories started as a collaboration between Robert Caudle 
+      and John Neubert to help clients bring pain-relieving medicines to market 
+      sooner through innovative and accelerated operant pain-testing services. 
+      Robert and John were joined by Niall P. Murphy, a scientist with extensive
+      expertise in preclinical reward and addiction assays. We work closely with
+      others with global industry and imaging experience. Together, Velocity 
+      Laboratories brings you a premier preclinical assay of pain.</p>
+    </div>
+  </div>
+</div>
 <div class="container-fluid text-center about-team">
   <div class="row">
     <h2>Our Team</h2>
-    <div class="col-md-4">
+    <div class="john col-md-4 text-center">
+      <div class="about-pic text-center"><%= image_tag 'john.jpg', class: 'about-img img-responsive img-circle' %></div>
       <h4>John. K. Neubert</h4>
       <p>John K. Neubert is the CEO of Velocity Laboratories. He received his 
       D.D.S., Orofacial Pain Management specialty training, and Ph.D. from UCLA 
@@ -30,7 +35,8 @@
       expert in operant pain assessment. He provides a clinician-scientist’s 
       perspective on pain and translational research expertise.</p>
     </div>
-    <div class="col-md-4">
+    <div class="rob col-md-4">
+      <div class="about-pic"><%= image_tag 'rob.jpg', class: 'about-img img-responsive img-circle' %></div>
       <h4>Robert M. Caudle</h4>
       <p>Robert M. Caudle is the President of Velocity Laboratories. He 
       received his Ph.D. from the University of Illinois at Chicago and 
@@ -39,7 +45,8 @@
       National Institutes of Health, he gained over 15 years of academic 
       experience. He is a co-inventor of the operant orofacial pain assay.</p>
     </div>
-    <div class="col-md-4">
+    <div class="niall col-md-4">
+      <div class="about-pic"><%= image_tag 'niall.jpg', class: 'about-img img-responsive img-circle' %></div>
       <h4>Niall P. Murphy</h4>
       <p>Niall P. Murphy, the Chief Scientific Officer for Velocity 
       Laboratories, received his Ph.D. from the University of Cambridge before 
@@ -52,8 +59,11 @@
   </div>
 </div>
 
-<div class="container-fluid text-center">
+<div class="container-fluid text-center about-contact-outer">
   <div class="row">
-    <%= link_to "Contact Us", new_contact_path, class: "btn btn-primary btn-lg contact-btn" %>
+    <div class="col-md-8 col-md-offset-2">
+      <h3>Questions?</h3>
+      <%= link_to "Contact Us", new_contact_path, class: "btn btn-primary btn-lg contact-btn" %>
+      </div>
   </div>
 </div>

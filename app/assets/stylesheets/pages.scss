@@ -1,21 +1,30 @@
 @import 'myvariables';
 
 // Home Page Styles
+// Background Video Media
+.fullscreen-bg-home {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+    background: url('DNA2.jpg') center center / cover no-repeat;
+}
 
 .home-callout {
-  // @include background-gradient;
   height: 100vh;
   color: #fff;
   font-size: 3em;
   margin-top: -20px;
   padding-top: 100px;
   padding-bottom: 100px;
-  @include video-overlay;
   font-family: 'Fjalla One', sans-serif;
 }
 
 .home-callout .content {
-  padding-top: 20vh;
+  margin-top: 20vh;
   align-items: center;
   justify-content: center;
 }
@@ -86,10 +95,11 @@
 // Sign up button
 .home-signupparent {
   height: 250px;
-  background-color: #141414;
+  background-color: #EEEEEE;
+  padding-top: 50px;
   
   .btn {
-    margin-top: 100px;
+    margin-top: 20px;
   }
 }
 // Unslider Styles
@@ -113,60 +123,63 @@
 }
 
 //About Page Styles
+// .fullscreen-bg-about {
+//     position: fixed;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     overflow: hidden;
+//     z-index: -100;
+//     background: url('DNA1.jpg') center center / cover no-repeat;
+// }
 
 .about-callout {
+  // height: 100vh;
+  background: url('DNA1.jpg') center center / cover no-repeat;
+  height: 500px;
+  color: #fff;
+  // font-size: 3em;
   margin-top: -20px;
-  padding-top: 50px;
+  padding-top: 200px;
   padding-bottom: 100px;
+  font-family: 'Fjalla One', sans-serif;
 }
+
+.about-description {
+  height: 300px;
+  background-color: #fff;
+  .content {
+    margin-top: 100px;
+  }
+}
+
 .about-team {
-  @include background-gradient;
+  // @include background-gradient;
+  background-color: #012333;
   color: white;
   padding-top: 50px;
   padding-bottom: 100px;
-}
-
-.contact-btn {
-  margin-top: 50px;
-  padding-top: 50px;
-  padding-bottom: 100px;
-}
-
-
-
-// Background Video Media
-.fullscreen-bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: -100;
-}
-
-.fullscreen-bg__video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    height: auto;
-    min-width: 100%;
-    min-height: 100%;
-    -webkit-transform: translate(-50%, -50%);
-       -moz-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-	    transform: translate(-50%, -50%);
-}
-
-@media (max-width: 767px) {
-    .fullscreen-bg {
-        background: url('https://s3-us-west-2.amazonaws.com/velocitylaboratories/DnaFrame.png') center center / cover no-repeat;
+  
+  .about-pic {
+    display: inline-block;
+    
+    .about-img {
+      width: 200px;
+      height: 200px;
     }
+  }
+}
 
-    .fullscreen-bg__video {
-        display: none;
-    }
+.about-contact-outer {
+  height: 300px;
+  h3 {
+    margin-top: 50px;
+  }
+  .contact-btn {
+    margin-top: 50px;
+    // margin-bottom: 50px;
+  }
 }
 
 // Other media

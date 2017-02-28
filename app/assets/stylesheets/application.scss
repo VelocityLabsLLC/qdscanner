@@ -62,7 +62,8 @@ h1, h2, h3 {
 }
 
 .navbar-color {
-  @include background-gradient;
+  background-color: $nav-color;
+  // @include background-gradient;
   border: none;
 }
 

@@ -13,5 +13,7 @@
 }
 
 @mixin video-overlay {
-  background-color: rgba(25,25,25,.5);
+  background-color: rgba(25,25,25,0);
 }
+
+$nav-color: #014665;
