@@ -13,3 +13,5 @@ module Qdscanner
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+# config.assets.paths << Rails.root.join('vendor', 'assets', 'components')

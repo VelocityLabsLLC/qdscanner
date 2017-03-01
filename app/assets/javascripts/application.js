@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require unslider-min
+//= require quagga
 //= require turbolinks
 //= require_tree .

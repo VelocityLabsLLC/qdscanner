@@ -1,3 +1,4 @@
+/*global $, navigator, Quagga*/
 function order_by_occurrence(arr) {
   var counts = {};
   arr.forEach(function(value){
@@ -24,11 +25,12 @@ function load_quagga(){
           code = order_by_occurrence(last_result)[0];
           last_result = [];
           Quagga.stop();
-          $.ajax({
-            type: "POST",
-            url: '/products/get_barcode',
-            data: { upc: code }
-          });
+          $("#cage_number").val(code);
+          // $.ajax({
+          //   type: "POST",
+          //   url: '/animals/get_barcode',
+          //   data: { upc: code }
+          // });
         }
       });
     }

@@ -1,0 +1,22 @@
+{
+  "name": "qdscanner",
+  "version": "1.0.0",
+  "description": "scan qd",
+  "main": "home.html.erb",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VelocityLabsLLC/qdscanner.git"
+  },
+  "author": "Eric Rohrs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VelocityLabsLLC/qdscanner/issues"
+  },
+  "homepage": "https://github.com/VelocityLabsLLC/qdscanner#readme"
+}

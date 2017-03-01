@@ -1,0 +1,13 @@
+{
+  "name": "qdscanner",
+  "homepage": "https://github.com/VelocityLabsLLC/qdscanner",
+  "authors": [
+    "Eric Rohrs <rohrs.eric@gmail.com>"
+  ],
+  "description": "Scan QD",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "quagga": "^0.11.6"
+  }
+}

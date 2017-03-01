@@ -2,6 +2,8 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3 well">
       <h1 class="text-center">Add Animal to Group</h1>
+        <div id='barcode-scanner'></div>
+        <%= text_field_tag "cage_number", "Cage Number" %>
         <div class="well">
           <%= render 'form' %>
       </div>
