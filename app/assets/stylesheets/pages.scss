@@ -17,7 +17,7 @@
   height: 100vh;
   color: #fff;
   font-size: 3em;
-  margin-top: -20px;
+  // margin-top: -20px;
   padding-top: 100px;
   padding-bottom: 100px;
   font-family: 'Fjalla One', sans-serif;
@@ -27,6 +27,9 @@
   margin-top: 20vh;
   align-items: center;
   justify-content: center;
+  h3 {
+    margin-top: 10vh;
+  }
 }
 
 .home-signup-links {
@@ -41,11 +44,10 @@
 // posy-purple 813772
 // embers-red B82601
 .selection-outer {
+  padding-top: 50px;
+  padding-bottom: 50px;
   background: #141414;
   border-bottom: 1px solid #000;
-  .spacer {
-    height: 50px;
-  }
   
   .selector {
     li {
@@ -64,6 +66,11 @@
       border-bottom: 5px solid white;
       border-radius: 0px;
     }
+  }
+  
+  .nav > li {
+    display: table-cell;
+    width: 1%;
   }
 }
 
@@ -95,9 +102,9 @@
 // Sign up button
 .home-signupparent {
   height: 250px;
-  background-color: #EEEEEE;
+  background-color: $nav-color2;
   padding-top: 50px;
-  
+  color: #FFF;
   .btn {
     margin-top: 20px;
   }
@@ -140,7 +147,7 @@
   height: 500px;
   color: #fff;
   // font-size: 3em;
-  margin-top: -20px;
+  // margin-top: -20px;
   padding-top: 200px;
   padding-bottom: 100px;
   font-family: 'Fjalla One', sans-serif;
@@ -156,7 +163,7 @@
 
 .about-team {
   // @include background-gradient;
-  background-color: #012333;
+  background-color: $nav-color2;
   color: white;
   padding-top: 50px;
   padding-bottom: 100px;
