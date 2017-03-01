@@ -10,7 +10,7 @@
     left: 0;
     overflow: hidden;
     z-index: -100;
-    background: url('DNA2.jpg') center center / cover no-repeat;
+    background: url('https://s3-us-west-2.amazonaws.com/velocitylaboratories/DNA2.jpg') center center / cover no-repeat;
 }
 
 .home-callout {
@@ -143,7 +143,7 @@
 
 .about-callout {
   // height: 100vh;
-  background: url('DNA1.jpg') center center / cover no-repeat;
+  background: url('https://s3-us-west-2.amazonaws.com/velocitylaboratories/DNA1.jpg') center center / cover no-repeat;
   height: 500px;
   color: #fff;
   // font-size: 3em;
@@ -157,7 +157,7 @@
   height: 300px;
   background-color: #fff;
   .content {
-    margin-top: 100px;
+    margin-top: 90px;
   }
 }
 
