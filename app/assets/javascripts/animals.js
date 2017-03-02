@@ -39,6 +39,9 @@ function load_quagga(){
       inputStream : {
         name : "Live",
         type : "LiveStream",
+        constraints: {
+          facingMode: "environment"
+        },
         numOfWorkers: navigator.hardwareConcurrency,
         target: document.querySelector('#barcode-scanner')  
       },
