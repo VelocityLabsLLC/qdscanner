@@ -9,5 +9,8 @@
   "license": "MIT",
   "dependencies": {
     "quagga": "^0.11.6"
+  },
+  "resolutions": {
+    "quagga": "^0.11.6"
   }
 }
