@@ -1,5 +1,5 @@
 module AnimalsHelper
-  def animal_types
+  def species
     [
       "Rat",
       "Mouse"

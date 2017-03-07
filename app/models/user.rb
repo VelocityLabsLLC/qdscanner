@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   belongs_to :organization
+  has_many :cages
   has_many :animals
   
   # Include default devise modules. Others available are:

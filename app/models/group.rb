@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   belongs_to :organization
+  has_many :cages
   has_many :animals
   
   validates :name, presence: true

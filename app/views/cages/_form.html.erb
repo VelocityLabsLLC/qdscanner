@@ -1,0 +1,86 @@
+<%= form_for([@group, @cage]) do |f| %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :group_id, :value => params[:group_id] %>
+  
+  <div class="form-group">
+    <%= f.label :cage_number %>
+    <%= f.number_field :cage_number, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :protocol %>
+    <%= f.number_field :protocol, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :requisition %>
+    <%= f.number_field :requisition, class: 'form-control' %>
+  </div>
+  
+  <%#= f.select :protocol, options_for_select(species), class: 'form-control' %>
+  <div class="form-group">
+    <%= f.label :cost_center %>
+    <%= f.text_field :cost_center, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :age_or_weight %>
+    <%= f.text_field :age_or_weight, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :species %>
+    <%= f.select :species, options_for_select(species), class: 'form-control' %>
+    <%#= f.select(:status, Animal.statuses.keys.map {|status| [status.titleize,status]}) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :receive_date %>
+    <%= f.date_field :receive_date, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :transfer_date %>
+    <%= f.date_field :transfer_date, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :birth_date %>
+    <%= f.date_field :birth_date, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :gender %>
+    <%= f.select(:gender, Cage.genders.keys.map {|gender| [gender.titleize,gender]}) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :total_animals %>
+    <%= f.number_field :total_animals, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :vendor %>
+    <%= f.text_field :vendor, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :emergency_num %>
+    <%= f.telephone_field :emergency_num, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :comment %>
+    <%= f.text_field :comment, class: 'form-control' %>
+  </div>
+  
+  <br/>
+  <div class="text-center">
+    <%= f.submit 'Add Animal to Group', class: 'btn btn-success' %>
+  </div>
+<% end %>
