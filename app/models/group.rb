@@ -6,7 +6,7 @@ class Group < ApplicationRecord
   has_many :users, through: :memberships
   belongs_to :organization
   has_many :cages
-  has_many :animals
+  has_many :animals, through: :cages
   
   validates :name, presence: true
   validates :description, presence: true

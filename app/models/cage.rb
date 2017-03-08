@@ -2,8 +2,9 @@ class Cage < ApplicationRecord
   resourcify
   enum gender: {
     male: 0,
-    female: 1,
+    female: 1
   }
+  
   
   belongs_to :group
   has_many :animals
