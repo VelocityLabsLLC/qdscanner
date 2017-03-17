@@ -18,6 +18,8 @@ class CreateCages < ActiveRecord::Migration[5.0]
       t.string      :vendor
       t.string      :emergency_num
       t.string      :comment
+      t.references  :group
+      t.references  :user
       t.timestamps
     end
   end

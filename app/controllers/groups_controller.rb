@@ -30,6 +30,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:group_id])
     @users = @group.users
     @owner = User.find(@group.owner_id)
+    @cages = @group.cages
     @animals = @group.animals
   end
 

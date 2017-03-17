@@ -10,20 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127143959) do
+ActiveRecord::Schema.define(version: 20170307184455) do
 
   create_table "animals", force: :cascade do |t|
     t.string   "identifier"
-    t.string   "animal_type"
+    t.string   "species"
     t.string   "strain"
-    t.string   "location"
-    t.integer  "status",      default: 0
+    t.integer  "status",     default: 0
     t.integer  "group_id"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "cage_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["cage_id"], name: "index_animals_on_cage_id"
     t.index ["group_id"], name: "index_animals_on_group_id"
     t.index ["user_id"], name: "index_animals_on_user_id"
+  end
+
+  create_table "cages", force: :cascade do |t|
+    t.integer  "cage_number"
+    t.string   "pi"
+    t.integer  "protocol"
+    t.integer  "requisition"
+    t.string   "cost_center"
+    t.string   "age_or_weight"
+    t.string   "species"
+    t.string   "s_s_b"
+    t.datetime "receive_date"
+    t.datetime "transfer_date"
+    t.datetime "birth_date"
+    t.integer  "gender",        default: 0
+    t.integer  "total_animals"
+    t.string   "location"
+    t.string   "vendor"
+    t.string   "emergency_num"
+    t.string   "comment"
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["group_id"], name: "index_cages_on_group_id"
+    t.index ["user_id"], name: "index_cages_on_user_id"
   end
 
   create_table "contacts", force: :cascade do |t|

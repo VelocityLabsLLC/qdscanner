@@ -5,8 +5,8 @@ class Cage < ApplicationRecord
     female: 1
   }
   
-  
   belongs_to :group
+  belongs_to :user
   has_many :animals
   
   def organization
