@@ -5,7 +5,6 @@ class CreateAnimals < ActiveRecord::Migration[5.0]
       t.string      :species
       t.string      :strain
       t.integer     :status, default: 0
-      t.references  :group, foreign_key: true
       t.references  :user, foreign_key: true
       t.references  :cage, foreign_key: true
       t.timestamps

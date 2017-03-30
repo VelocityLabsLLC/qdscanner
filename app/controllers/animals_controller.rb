@@ -1,6 +1,7 @@
 class AnimalsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource :group
+  # load_and_authorize_resource :group
+  load_and_authorize_resource :cage, :through => :group, :shallow => true
   load_and_authorize_resource :animal, :through => :group, :shallow => true
   
   def index
@@ -51,9 +52,12 @@ class AnimalsController < ApplicationController
     redirect_back fallback_location: group_animals_path(params[:group_id])
   end
   
+    
+  
+  
   private
     def animal_params
-      params.require(:animal).permit(:identifier, :species, :strain, :location, :status, :group_id, :user_id, :cage_id)
+      params.require(:animal).permit(:identifier, :species, :strain, :status, :user_id, :cage_id)
     end
   
 end

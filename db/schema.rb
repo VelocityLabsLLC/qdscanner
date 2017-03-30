@@ -17,13 +17,11 @@ ActiveRecord::Schema.define(version: 20170307184455) do
     t.string   "species"
     t.string   "strain"
     t.integer  "status",     default: 0
-    t.integer  "group_id"
     t.integer  "user_id"
     t.integer  "cage_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.index ["cage_id"], name: "index_animals_on_cage_id"
-    t.index ["group_id"], name: "index_animals_on_group_id"
     t.index ["user_id"], name: "index_animals_on_user_id"
   end
 
@@ -78,6 +76,7 @@ ActiveRecord::Schema.define(version: 20170307184455) do
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
   end
 
   create_table "groups_group_roles", id: false, force: :cascade do |t|

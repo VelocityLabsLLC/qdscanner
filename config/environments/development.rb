@@ -1,6 +1,12 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
+  # Initialize according to react-rails gem
+  # MyApp::Application.configure do
+  #   config.react.variant = :development
+  #   config.react.addons = true
+  # end
+  
   # Set up devise mailing
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp

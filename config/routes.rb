@@ -23,14 +23,21 @@ Rails.application.routes.draw do
   resources :groups, param: :group_id
   
   resources :groups, only: [] do
-    resources :animals, param: :animal_id
+    resources :cages, param: :cage_id 
   end
   
+  resources :groups, only: [] do
+    resources :cages, only: [] do
+      resources :animals, param: :animal_id
+    end
+  end
+    
   resources :groups, only: [], param: :group_id do 
     member do
       patch :add_user
       put :add_user
       delete :remove_user
+      get :scanner
     end
   end
   

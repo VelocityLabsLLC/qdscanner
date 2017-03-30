@@ -9,9 +9,9 @@ class Cage < ApplicationRecord
   belongs_to :user
   has_many :animals
   
-  def organization
-    group.organization
-  end
+  # def organization
+  #   group.organization
+  # end
   
-  delegate :organization, :organization_id, to: :group
+  delegate :organization, :organization_id, to: :group, :allow_nil => true
 end

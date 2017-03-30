@@ -1,6 +1,12 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
+  # Initialize according to react-rails gem
+  # MyApp::Application.configure do
+  #   config.react.variant = :production
+  #   config.react.addons = true
+  # end
+  
   # Set up devise mailing
   config.action_mailer.default_url_options =   { :host => 'murmuring-river-42668.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp

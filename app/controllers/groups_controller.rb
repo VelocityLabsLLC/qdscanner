@@ -108,6 +108,13 @@ class GroupsController < ApplicationController
     redirect_to group_path( group_id: params[:group_id] )
   end
   
+  def scanner
+    # React.js Cage Barcode Scanner
+    @group = Group.find(params[:group_id])
+    @cages = @group.cages
+    @animals = @group.animals
+  end
+  
   private
     def group_params
       params.require(:group).permit(:name, :description, :owner_id, :organization_id)

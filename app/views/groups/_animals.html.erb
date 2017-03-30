@@ -16,9 +16,6 @@
                 <div class="col-md-2 text-center">
                   <h4><%= animal.strain %></h4>
                 </div>
-                <div class="col-md-3 text-center">
-                  <h4><%= animal.location %></h4>
-                </div>
                 <div class="col-md-2 text-center">
                   <h4><%= animal.status %></h4>
                 </div>
@@ -40,7 +37,7 @@
       <br/>
       <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
         <div class="text-center">
-          <%= link_to "Add Animals to Group", new_group_animal_path, class: 'btn btn-success btn-lg' %>
+          <%= link_to "Add Animals to Group", scanner_group_path, class: 'btn btn-success btn-lg' %>
         </div>
       <% end %>
     </div>

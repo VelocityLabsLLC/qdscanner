@@ -57,24 +57,33 @@ class Ability
           #can :manage, Group, owner_id: user.id
           can :manage, group
           can :manage, Animal, :group_id => group.id
+          can :manage, Animal, :group_id => nil
+          can :manage, Cage, :group_id => group.id
+          can :manage, Cage, :group_id => nil
+          can :scanner, Group, :group_id => group.id
         elsif user.has_role?(:admin, group)
           # User can use standard controller actions and update the users in group
           #can :crud, Group, :id => Group.with_role(:admin, user).pluck(:id)
           can :crud, group
           can :update_users, group
           can :manage, Animal, :group_id => group.id
+
+          can :manage, Cage, :group_id => group.id
         elsif user.has_role?(:tech, group)
           can :crud, Animal, :group_id => group.id
+          can :crud, Cage, :group_id => group.id
         elsif user.has_role?(:default_role, group)
           # User can only remove themselves from group
           can :remove_user, group
           can :read, Animal, :group_id => group.id
+          can :read, Cage, :group_id => group.id
         end
         
         if group.has_role?(:admin, user.organization)
           can :manage, Group, :organization => { :id => user.organization.id }
           can :create, Group
           can :manage, Animal, :group => { :organization_id => user.organization.id }
+          can :manage, Cage, :group => { :organization_id => user.organization.id }
           can :update_user, Organization, :id => user.organization.id
         end
       end

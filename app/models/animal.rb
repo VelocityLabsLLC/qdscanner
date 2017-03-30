@@ -9,17 +9,15 @@ class Animal < ApplicationRecord
   belongs_to :user
   belongs_to :cage
   
-  def organization
-    cage.organization
-  end
+  # def organization
+  #   cage.organization
+  # end
   
-  def group
-    cage.group
-  end
+  # def group
+  #   cage.try(:group)
+  # end
   
-  delegate :organization, :organization_id, to: :cage
-  delegate :group, :group_id, to: :cage
+  delegate :organization, :organization_id, to: :cage, :allow_nil => true
+  delegate :group, :group_id, to: :cage, :allow_nil => true
   
-  # validates :type, presence: true
-  # validates :name, presence: true
 end

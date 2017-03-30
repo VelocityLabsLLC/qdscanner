@@ -15,4 +15,7 @@
 //= require bootstrap-sprockets
 //= require quagga
 //= require turbolinks
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

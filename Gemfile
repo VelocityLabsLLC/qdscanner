@@ -54,6 +54,10 @@ gem 'rolify'
 
 # Unslider for jquery slider library
 # gem 'jquery-unslider-rails'
+
+# Initialize react.js for scanning views!
+gem 'react-rails'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-quagga'
 end
