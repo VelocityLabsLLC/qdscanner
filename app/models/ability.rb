@@ -56,8 +56,8 @@ class Ability
           # User can :manage his own group including all unique controller actions
           #can :manage, Group, owner_id: user.id
           can :manage, group
-          can :manage, Animal, :group_id => group.id
-          can :manage, Animal, :group_id => nil
+          can :manage, Animal, :cage => { :group_id => group.id }
+          # can :manage, Animal, :cage => { :group_id => nil }
           can :manage, Cage, :group_id => group.id
           can :manage, Cage, :group_id => nil
           can :scanner, Group, :group_id => group.id

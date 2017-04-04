@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1 class="text-center">Cages in group <%=@group.name%></h1>
+      <% unless @cages.empty? %>
+        <ul class="list-unstyled">
+          <% @cages.each do |cage| %>
+            <li>
+              <div class="well row <%= cycle('white-bg','') %>">
+                <p>
+                  Cage Number: <%= cage.cage_number %> <br/>
+                  Protocol: <%= cage.protocol %> <br/>
+                  Requisition: <%= cage.requisition %> <br/>
+                  Cost Center: <%= cage.cost_center %> <br/>
+                  Age/Weight: <%= cage.age_or_weight %> <br/>
+                  Species: <%= cage.species %> <br/>
+                  Receive Date: <%= cage.receive_date %> <br/>
+                  Transfer Date: <%= cage.transfer_date %> <br/>
+                  Birth Date: <%= cage.birth_date %> <br/>
+                  Gender: <%= cage.gender %> <br/>
+                  Total Animals: <%= cage.total_animals %> <br/>
+                  Location: <%= cage.location %> <br/>
+                  Vendor: <%= cage.vendor %> <br/>
+                  Emergency Number: <%= cage.emergency_num %> <br/>
+                  Comments: <%= cage.comment %> <br/>
+                </p>
+                <div class="col-md-3 text-center">
+                  <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                    <%= link_to "Edit", edit_group_cage_path(group_id: params[:group_id], cage_id: cage.id) %>
+                  <% end %>
+                  <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                    <%= button_to "Delete", group_cage_path(group_id: params[:group_id], cage_id: cage.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h3> There are no cages in this group. </h3>
+      <% end %>
+      <br/>
+      <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+        <div class="text-center">
+          <%= link_to "Scan Cage/Animals", scanner_group_path, class: 'btn btn-success btn-lg' %>
+          <%= link_to "Cages", group_cages_path, class: 'btn btn-success btn-lg' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well">
+        <h3>Cage Information</h3>
+        <p>
+          Organization: <%= @cage.organization.name %> <br/>
+          Group: <%= @cage.group.name %> <br/>
+          Owner: <%= @cage.user.email %> <br/>
+          Cage Number: <%= @cage.cage_number %> <br/>
+          Protocol: <%= @cage.protocol %> <br/>
+          Requisition: <%= @cage.requisition %> <br/>
+          Cost Center: <%= @cage.cost_center %> <br/>
+          Age/Weight: <%= @cage.age_or_weight %> <br/>
+          Species: <%= @cage.species %> <br/>
+          Receive Date: <%= @cage.receive_date %> <br/>
+          Transfer Date: <%= @cage.transfer_date %> <br/>
+          Birth Date: <%= @cage.birth_date %> <br/>
+          Gender: <%= @cage.gender %> <br/>
+          Total Animals: <%= @cage.total_animals %> <br/>
+          Location: <%= @cage.location %> <br/>
+          Vendor: <%= @cage.vendor %> <br/>
+          Emergency Number: <%= @cage.emergency_num %> <br/>
+          Comments: <%= @cage.comment %> <br/>
+        </p>
+        </br>
+        <div class="text-center">
+          <%= link_to "Edit Cage Information", edit_group_cage_path(group_id: params[:group_id], animal_id: params[:animal_id]), class: 'btn btn-lg btn-info'%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

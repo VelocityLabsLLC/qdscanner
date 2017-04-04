@@ -1,11 +1,15 @@
 <div class="container">
   <ul class="nav nav-pills nav-justified">
     <li class="active"><a data-toggle="tab" href="#animals">Animals</a></li>
+    <li><a data-toggle="tab" href="#cages">Cages</a></li>
     <li><a data-toggle="tab" href="#users">Users</a></li>
   </ul>
   <div class="tab-content">
     <div id="animals" class="tab-pane fade in active">
       <%= render 'animals' %>
+    </div>
+    <div id="cages" class="tab-pane fade">
+      <%= render 'cages' %>
     </div>
     <div id="users" class="tab-pane fade">
       <%= render 'users' %>

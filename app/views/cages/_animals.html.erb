@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well cage-animals">
+        <% unless @animals.empty? %>
+          <ul class="list-unstyled">
+            <% @animals.each do |animal| %>
+              <li>
+                <div class="well row <%= cycle('white-bg','') %>">
+                  <div class="col-md-1 text-center">
+                    <h4><%= animal.identifier%></h4>
+                  </div>
+                  <div class="col-md-1 text-center">
+                    <h4><%= animal.species %></h4>
+                  </div>
+                  <div class="col-md-2 text-center">
+                    <h4><%= animal.strain %></h4>
+                  </div>
+                  <div class="col-md-2 text-center">
+                    <h4><%= animal.status %></h4>
+                  </div>
+                  <div class="col-md-3 text-center">
+                    <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                      <%= link_to "Edit", edit_group_cage_animal_path(group_id: params[:group_id], cage_id: @cage.id, animal_id: animal.id) %>
+                    <% end %>
+                    <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
+                      <%= button_to "Delete", group_cage_animal_path(group_id: params[:group_id], cage_id: @cage.id, animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                    <% end %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <h3> There are no animals in this cage. </h3>
+        <% end %>
+        <%= link_to "Add Animals", new_group_cage_animal_path(group_id: params[:group_id], cage_id: @cage.id), class: 'btn btn-lg btn-success'%>
+      </div>
+    </div>
+  </div>
+</div>

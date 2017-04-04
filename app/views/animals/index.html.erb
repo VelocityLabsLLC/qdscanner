@@ -15,18 +15,15 @@
               <div class="col-md-2 text-center">
                 <h4><%= animal.strain %></h4>
               </div>
-              <div class="col-md-3 text-center">
-                <h4><%= animal.location %></h4>
-              </div>
               <div class="col-md-2 text-center">
                 <h4><%= animal.status %></h4>
               </div>
               <div class="col-md-3 text-center">
                 <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
-                  <%= link_to "Edit", group_animal_path(group_id: params[:group_id], animal_id: animal.id) %>
+                  <%= link_to "Edit", edit_group_cage_animal_path(group_id: params[:group_id], cage_id: params[:cage_id], animal_id: animal.id) %>
                 <% end %>
                 <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
-                  <%= button_to "Delete", group_animal_path(group_id: params[:group_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
+                  <%= button_to "Delete", group_cage_animal_path(group_id: params[:group_id], cage_id: params[:cage_id], animal_id: animal.id), method: :delete, data: {confirm: "You sure?"}, class: 'btn btn-danger' %>
                 <% end %>
               </div>
             </div>
@@ -35,7 +32,7 @@
         <br/>
         <% if current_user.has_role?(:creator, @group) or current_user.has_role?(:admin, @group) or current_user.has_role?(:tech, @group) or current_user.groups.with_role(:admin, @group) %>
           <div class="text-center">
-            <%= link_to "Add Animals to Group", new_group_animal_path, class: 'btn btn-success btn-lg' %>
+            <%= link_to "Add Animals to Cage", new_group_cage_animal_path(group_id: params[:group_id], cage_id: params[:cage_id]), class: 'btn btn-success btn-lg' %>
           </div>
         <% end %>
       </ul>

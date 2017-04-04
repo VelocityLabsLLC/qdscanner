@@ -1,7 +1,9 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
   before_action :can_create_group?, only: :new
+  load_and_authorize_resource :group
+  # load_and_authorize_resource :cage, :through => :group, :shallow => true
+  
   
   def index
     @groups=current_user.organization.groups

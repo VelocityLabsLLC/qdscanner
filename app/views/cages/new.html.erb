@@ -1,18 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3 well">
-      <h1 class="text-center">Add Animal to Group</h1>
-        <div id='barcode-scanner'></div>
-        <%= text_field_tag "cage_number", "Cage Number" %>
-        <div>
-            <form>
-                <div class="input-field">
-                    <label for="isbn_input">EAN:</label>
-                    <input id="isbn_input" class="isbn" type="text" />
-                    <button id="button-scan" type="button" class="icon-barcode button scan"><i class="fa fa-barcode" aria-hidden="true"></i></button>
-                </div>
-            </form>
-        </div>
+      <h1 class="text-center">Add Cage to Group</h1>
         <div class="well">
           <%= render 'form' %>
       </div>

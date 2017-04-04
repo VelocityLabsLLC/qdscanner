@@ -1,11 +1,13 @@
 class CagesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :group
-  load_and_authorize_resource :cage, :through => :group, :shallow => true
+  load_and_authorize_resource :cage, :find_by => :cage_id, :through => :group, :shallow => true
+
+  skip_authorize_resource :cage, :only => [:show, :edit, :update]
   
   def index
-    @group = Group.find( params[:group_id] )
-    @cages = @group.cages
+    #@group = Group.find( params[:group_id] )
+    #@cages = @group.cages
   end
   
   def new
@@ -15,6 +17,7 @@ class CagesController < ApplicationController
   
   def create
     @cage = Cage.new(cage_params)
+    authorize! :update, @cage, :through => :group
     if @cage.save
       current_user.add_role("owner", @cage)
       flash[:success] = "Cage added!"
@@ -27,15 +30,18 @@ class CagesController < ApplicationController
   
   def show
     @cage = Cage.find(params[:cage_id])
+    authorize! :show, @cage, :through => :group
+    @animals = @cage.animals
   end
 
   def edit
     @cage = Cage.find(params[:cage_id])
-    @group = Group.find(params[:group_id])
+    authorize! :update, @cage, :through => :group
   end
   
   def update
     @cage = Cage.find(params[:cage_id])
+    authorize! :update, @cage, :through => :group
     if @cage.update_attributes(cage_params)
       flash[:success] = "Cage info updated!"
       # Redirect user to cage path
@@ -69,6 +75,8 @@ class CagesController < ApplicationController
                                     :location,
                                     :vendor,
                                     :emergency_num,
-                                    :comment)
+                                    :comment,
+                                    :group_id,
+                                    :user_id)
     end
 end
