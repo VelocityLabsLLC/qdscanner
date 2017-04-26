@@ -55,8 +55,7 @@ gem 'rolify'
 # Unslider for jquery slider library
 # gem 'jquery-unslider-rails'
 
-# Initialize react.js for scanning views!
-gem 'react-rails'
+
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-quagga'
@@ -85,4 +84,8 @@ group :production do
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-ruby '2.3.0'
+ruby '2.3.1'
+
+# User react_on_rails to enable webpack and react
+gem 'react_on_rails', "~> 6"
+gem 'foreman'
