@@ -55,11 +55,9 @@ gem 'rolify'
 # Unslider for jquery slider library
 # gem 'jquery-unslider-rails'
 
-
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-quagga'
-end
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-quagga'
+# end
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -89,3 +87,4 @@ ruby '2.3.1'
 # User react_on_rails to enable webpack and react
 gem 'react_on_rails', "~> 6"
 gem 'foreman'
+gem 'mini_racer', platforms: :ruby

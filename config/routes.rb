@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'scan', to: 'scanner#index'
+
   root to: 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
 

@@ -60,34 +60,35 @@
       </div>
       
       <%= yield %>
-      
-      <footer class="footer">
-        <div class="container">
-          <div class="row">
-            <div class="footer-left col-md-4">
-              <ul class="list-inline">
-                <li class="list-inline-item footer-link"><%= link_to "About", about_path %></li>
-                <li class="list-inline-item footer-link"><%= link_to "Contact Us", new_contact_path %></li>
-              </ul>
-            </div>
-            <div class="footer-left col-md-4 text-center">
-              <ul class="list-inline">
-                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-facebook" aria-hidden="true"></i><% end %></li>
-                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-twitter" aria-hidden="true"></i><% end %></li>
-                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-instagram" aria-hidden="true"></i><% end %></li>
-                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-linkedin" aria-hidden="true"></i><% end %></li>
-                <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-youtube" aria-hidden="true"></i><% end %></li>
-              </ul>
-            </div>
-            <div class="footer-right col-md-4 text-right">
-              <%= link_to root_path, class: "footer-brand" do %>
-                <i class="fa fa-cogs" aria-hidden="true"></i>
-                Velocity Laboratories
-              <% end %>
+      <% unless controller?("scanner") %>
+        <footer class="footer">
+          <div class="container">
+            <div class="row">
+              <div class="footer-left col-md-4">
+                <ul class="list-inline">
+                  <li class="list-inline-item footer-link"><%= link_to "About", about_path %></li>
+                  <li class="list-inline-item footer-link"><%= link_to "Contact Us", new_contact_path %></li>
+                </ul>
+              </div>
+              <div class="footer-left col-md-4 text-center">
+                <ul class="list-inline">
+                  <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-facebook" aria-hidden="true"></i><% end %></li>
+                  <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-twitter" aria-hidden="true"></i><% end %></li>
+                  <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-instagram" aria-hidden="true"></i><% end %></li>
+                  <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-linkedin" aria-hidden="true"></i><% end %></li>
+                  <li class="list-inline-item social-icon"><%= link_to root_path, class: "footer-brand" do %><i class="fa fa-youtube" aria-hidden="true"></i><% end %></li>
+                </ul>
+              </div>
+              <div class="footer-right col-md-4 text-right">
+                <%= link_to root_path, class: "footer-brand" do %>
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Velocity Laboratories
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      <% end %>
     </div>
   </body>
 </html>
