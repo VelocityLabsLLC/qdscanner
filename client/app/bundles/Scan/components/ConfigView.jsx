@@ -152,18 +152,19 @@ export default class ConfigView extends React.Component {
                 <List>
                     <Subheader>{section.name}</Subheader>
                     {Object.keys(section.options).map(option => {
-                        const path = section.path.concat([option]);
+                    // 
+                        const pathel = section.path.concat([option]);
                         if (typeof section.options[option] === 'boolean') {
                             return (
                                 <ListItem
                                     key={option}
-                                    path={path}
+                                    path={pathel}
                                     primaryText={option}
                                     rightToggle={
                                         <ToggleConfigOption
                                             onToggle={this.handleToggle}
-                                            path={path}
-                                            toggled={!!getConfigByPath(this.props, path)} />
+                                            path={pathel}
+                                            toggled={!!getConfigByPath(this.props, pathel)} />
                                     }
                                 />
                             );
@@ -173,10 +174,10 @@ export default class ConfigView extends React.Component {
                                     <SelectConfigOption
                                         fullWidth={true}
                                         key={option}
-                                        path={path}
+                                        path={pathel}
                                         style={selectStyle}
                                         labelStyle={selectedItemStyle}
-                                        value={getConfigByPath(this.props, path)}
+                                        value={getConfigByPath(this.props, pathel)}
                                         onChange={this.handleChange}
                                         floatingLabelText={option}
                                     >

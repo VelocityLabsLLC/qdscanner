@@ -6,10 +6,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
+const muiTheme = getMuiTheme({
+  appBar: {
+    height: 64,
+  },
+});
+
 export default class Scan extends React.Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <BarcodeApp />
       </MuiThemeProvider>
     );

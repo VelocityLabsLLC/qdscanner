@@ -134,7 +134,7 @@ export default class BarcodeApp extends React.Component {
                 </Drawer>
                 <AppBar
                     style={{position: 'fixed', top: '0px'}}
-                    title="QuaggaJS"
+                    title="Velocity Laboratories"
                     iconElementLeft={<IconButton onTouchTap={this._handleToggle}><TuneIcon /></IconButton>}
                     onLeftIconButtonTouchTap={this._handleToggle}
                     />
