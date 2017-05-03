@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'scan', to: 'scanner#index'
-
+  post 'check_cage_exists', to: 'scanner#check_cage_exists'
+  
   root to: 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
 

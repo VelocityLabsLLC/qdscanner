@@ -2,6 +2,7 @@ import React from 'react';
 import {Card, CardActions, CardText, CardHeader} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
 
@@ -52,42 +53,60 @@ const lineStyle = {
     alignItems: 'center',
 };
 
-const ScannedCode = ({scannedCode, onDelete}) => {
+const cageExists = scannedCode => {
+    if (scannedCode.cageData.id) {
+      return scannedCode.cageData.protocol;
+    } else {
+      return "Cage record not found";
+    }
+};
+
+const ScannedCode = ({scannedCode, onDelete, onEdit}) => {
     return (
         <Card
             style={{margin: '0.5em 0.25em 0em'}}>
-        <CardHeader
-          textStyle={{paddingRight: '20px', maxWidth: '100%', boxSizing: 'border-box'}}
-          titleStyle={{fontSize: '18px', wordWrap: 'break-word'}}
-          title={scannedCode.codeResult.code}
-          subtitle={scannedCode.codeResult.format}
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
-        <CardText expandable={true}>
-        <div style={lineStyle}>
-            <div style={keyStyle}>Direction: </div><div>{renderDirection(scannedCode.codeResult.direction)}</div>
-        </div>
-        <Divider />
-        <div style={lineStyle}>
-            <div style={keyStyle}>Angle: </div><div>{renderAngle(scannedCode.angle)} deg</div>
-        </div>
-        <Divider />
-        <div style={lineStyle}>
-            <div style={keyStyle}>Line: </div>{renderLine(scannedCode.line)}
-        </div>
-        <Divider />
-        <div style={lineStyle}>
-           <div style={keyStyle}>Box: </div>
-           {renderBox(scannedCode.box)}
-       </div>
-       </CardText>
-            <CardActions expandable={true}>
-              <FlatButton
-                label=""
-                style={{minWidth: '36px', color: '#aaa'}}
-                onClick={onDelete} icon={<DeleteIcon />} />
-            </CardActions>
+          <CardHeader
+            textStyle={{paddingRight: '20px', maxWidth: '100%', boxSizing: 'border-box'}}
+            titleStyle={{fontSize: '18px', wordWrap: 'break-word'}}
+            title={scannedCode.codeResult.code}
+            // subtitle={scannedCode.codeResult.format}
+            subtitle={cageExists(scannedCode)}
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true}>
+            <div style={lineStyle}>
+                <div style={keyStyle}>cageData: </div><div>{scannedCode.cageData.cage_number}</div>
+            </div>
+            <Divider />
+            <div style={lineStyle}>
+                <div style={keyStyle}>Direction: </div><div>{renderDirection(scannedCode.codeResult.direction)}</div>
+            </div>
+            <Divider />
+            <div style={lineStyle}>
+                <div style={keyStyle}>Angle: </div><div>{renderAngle(scannedCode.angle)} deg</div>
+            </div>
+            <Divider />
+            <div style={lineStyle}>
+                <div style={keyStyle}>Line: </div>{renderLine(scannedCode.line)}
+            </div>
+            <Divider />
+            <div style={lineStyle}>
+               <div style={keyStyle}>Box: </div>
+               {renderBox(scannedCode.box)}
+            </div>  
+          </CardText>
+          <CardActions expandable={true}>
+            <FlatButton
+              label=""
+              style={{minWidth: '36px', color: '#aaa'}}
+              onClick={onDelete} icon={<DeleteIcon />} />
+            <FlatButton
+              label=""
+              disabled={true}
+              style={{minWidth: '36px', color: '#aaa'}}
+              onClick={onEdit} icon={<EditIcon />} />
+          </CardActions>
         </Card>
     );
 };
@@ -95,6 +114,7 @@ const ScannedCode = ({scannedCode, onDelete}) => {
 ScannedCode.propTypes = {
     scannedCode: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
+    onEdit: PropTypes.func,
 };
 
 export default ScannedCode;

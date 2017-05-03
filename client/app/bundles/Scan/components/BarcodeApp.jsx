@@ -1,3 +1,4 @@
+/* global $ */
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -81,24 +82,52 @@ export default class BarcodeApp extends React.Component {
     _stopScanning = () => {
         this.setState({scanning: false});
     };
-
+    
     _handleResult = (result) => {
-        this._stopScanning();
-        const scannedCodes =
+      this._stopScanning();
+      $.post('/check_cage_exists',
+            {scanned_number: result.codeResult.code})
+          .done(function(data) {
+            this._stopScanning();
+            this._handleRecord(result, data);
+          }.bind(this));
+    };
+    
+    _handleRecord = (result, data) => {
+      const scannedCodes =
             [{
-                angle: result.angle,
-                box: result.box,
-                codeResult: {
-                    code: result.codeResult.code,
-                    direction: result.codeResult.direction,
-                    format: result.codeResult.format,
-                },
-                line: result.line,
+              angle: result.angle,
+              box: result.box,
+              codeResult: {
+                  code: result.codeResult.code,
+                  direction: result.codeResult.direction,
+                  format: result.codeResult.format,
+              },
+              line: result.line,
+              cageData: data,
             }]
             .concat(this.state.scannedCodes);
-        this.setState({scannedCodes});
-        persist('scannedCodes', scannedCodes);
-    }
+      this.setState({scannedCodes});
+      persist('scannedCodes', scannedCodes);
+    };
+    
+    // _handleResult = (result) => {
+    //     this._stopScanning();
+    //     const scannedCodes =
+    //         [{
+    //             angle: result.angle,
+    //             box: result.box,
+    //             codeResult: {
+    //                 code: result.codeResult.code,
+    //                 direction: result.codeResult.direction,
+    //                 format: result.codeResult.format,
+    //             },
+    //             line: result.line,
+    //         }]
+    //         .concat(this.state.scannedCodes);
+    //     this.setState({scannedCodes});
+    //     persist('scannedCodes', scannedCodes);
+    // }
 
     _navigateTo = (route) => {
         this.setState({
