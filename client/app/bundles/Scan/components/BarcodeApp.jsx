@@ -64,10 +64,12 @@ export default class BarcodeApp extends React.Component {
         scannedCodes: load('scannedCodes') || [],
     };
 
-    _handleToggle = () => {
+    _handleToggleSettings = () => {
         this.setState({drawerOpen: !this.state.drawerOpen});
     }
+    
     _handleClose = () => this.setState({drawerOpen: false});
+    
     _onRequestChange = drawerOpen => {
         this.setState({drawerOpen});
     };
@@ -88,7 +90,6 @@ export default class BarcodeApp extends React.Component {
       $.post('/check_cage_exists',
             {scanned_number: result.codeResult.code})
           .done(function(data) {
-            this._stopScanning();
             this._handleRecord(result, data);
           }.bind(this));
     };
@@ -161,11 +162,16 @@ export default class BarcodeApp extends React.Component {
                 >
                     <ConfigView config={this.state.config} onChange={this._handleConfigChange} />
                 </Drawer>
+                
                 <AppBar
                     style={{position: 'fixed', top: '0px'}}
                     title="Velocity Laboratories"
-                    iconElementLeft={<IconButton onTouchTap={this._handleToggle}><TuneIcon /></IconButton>}
-                    onLeftIconButtonTouchTap={this._handleToggle}
+                    iconElementLeft={<IconButton onTouchTap={this._handleToggleSettings}><TuneIcon /></IconButton>}
+                    onLeftIconButtonTouchTap={this._handleToggleSettings}
+                    />
+                <AppBar
+                    style={{position: 'fixed', bottom: '0px'}}
+                    title="Bottom Bar"
                     />
                 <Dialog
                     style={{paddingTop: '0px'}}

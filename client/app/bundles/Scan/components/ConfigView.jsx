@@ -149,35 +149,34 @@ export default class ConfigView extends React.Component {
     render() {
         return (<div>{
             configSections.map(section => (
-                <List>
-                    <Subheader>{section.name}</Subheader>
+                <List key={section.name}>
+                    <Subheader key={section.name}>{section.name}</Subheader>
                     {Object.keys(section.options).map(option => {
-                    // 
-                        const pathel = section.path.concat([option]);
+                        const path = section.path.concat([option]);
                         if (typeof section.options[option] === 'boolean') {
                             return (
                                 <ListItem
                                     key={option}
-                                    path={pathel}
+                                    // path={path}
                                     primaryText={option}
                                     rightToggle={
                                         <ToggleConfigOption
                                             onToggle={this.handleToggle}
-                                            path={pathel}
-                                            toggled={!!getConfigByPath(this.props, pathel)} />
+                                            path={path}
+                                            toggled={!!getConfigByPath(this.props, path)} />
                                     }
                                 />
                             );
                         } else {
                             return (
-                                <div style={{paddingLeft: 16, paddingRight: 16}}>
+                                <div style={{paddingLeft: 16, paddingRight: 16}} key={option}>
                                     <SelectConfigOption
                                         fullWidth={true}
                                         key={option}
-                                        path={pathel}
+                                        path={path}
                                         style={selectStyle}
                                         labelStyle={selectedItemStyle}
-                                        value={getConfigByPath(this.props, pathel)}
+                                        value={getConfigByPath(this.props, path)}
                                         onChange={this.handleChange}
                                         floatingLabelText={option}
                                     >
