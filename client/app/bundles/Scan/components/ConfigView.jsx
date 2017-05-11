@@ -102,94 +102,263 @@ const SelectConfigOption = createConfigOption(SelectField);
 const ToggleConfigOption = createConfigOption(Toggle);
 
 export default class ConfigView extends React.Component {
-    static propTypes = {
-        onChange: PropTypes.func,
-        config: PropTypes.object.isRequired,
-    };
+  static propTypes = {
+      onChange: PropTypes.func,
+      config: PropTypes.object.isRequired,
+  };
 
-    state = {
-        devicesFetched: false,
-    };
+  state = {
+      devicesFetched: false,
+  };
 
-    handleChange = (event, index, value, path) => {
-        const newState = reducer(this.props.config, path, value);
-        this.props.onChange(newState);
-    }
+  handleChange = (event, index, value, path) => {
+      const newState = reducer(this.props.config, path, value);
+      this.props.onChange(newState);
+  }
 
-    handleToggle = (event, value, path) => {
-        return this.handleChange(event, 0, value, path);
-    }
+  handleToggle = (event, value, path) => {
+      return this.handleChange(event, 0, value, path);
+  }
 
-    componentWillMount() {
-        navigator.mediaDevices
-            .enumerateDevices()
-            .then((devices) => {
-                const videoDevices = devices
-                    .filter(info => info.kind === 'videoinput')
-                    .map(videoDevice => ([
-                        videoDevice.deviceId,
-                        videoDevice.label,
-                    ]));
-                const constraints = configSections
-                    .map((section, index) => (section.name === "Constraints" ? {section, index} : null))
-                    .filter(sectionIndex => !!sectionIndex)[0];
-                configSections = configSections.slice();
-                constraints.section = {
-                    ...constraints.section,
-                    options: {
-                        ...constraints.section.options,
-                        deviceId: [[0, "no preference"]].concat(videoDevices),
-                    },
-                };
-                configSections[constraints.index] = constraints.section;
-                this.setState({devicesFetched: true});
-            });
-    }
+  componentWillMount() {
+      navigator.mediaDevices
+          .enumerateDevices()
+          .then((devices) => {
+              const videoDevices = devices
+                  .filter(info => info.kind === 'videoinput')
+                  .map(videoDevice => ([
+                      videoDevice.deviceId,
+                      videoDevice.label,
+                  ]));
+              const constraints = configSections
+                  .map((section, index) => (section.name === "Constraints" ? {section, index} : null))
+                  .filter(sectionIndex => !!sectionIndex)[0];
+              configSections = configSections.slice();
+              constraints.section = {
+                  ...constraints.section,
+                  options: {
+                      ...constraints.section.options,
+                      deviceId: [[0, "no preference"]].concat(videoDevices),
+                  },
+              };
+              configSections[constraints.index] = constraints.section;
+              this.setState({devicesFetched: true});
+          });
+  }
 
-    render() {
-        return (<div>{
-            configSections.map(section => (
-                <List key={section.name}>
-                    <Subheader key={section.name}>{section.name}</Subheader>
-                    {Object.keys(section.options).map(option => {
-                        const path = section.path.concat([option]);
-                        if (typeof section.options[option] === 'boolean') {
-                            return (
-                                <ListItem
-                                    key={option}
-                                    // path={path}
-                                    primaryText={option}
-                                    rightToggle={
-                                        <ToggleConfigOption
-                                            onToggle={this.handleToggle}
-                                            path={path}
-                                            toggled={!!getConfigByPath(this.props, path)} />
-                                    }
-                                />
-                            );
-                        } else {
-                            return (
-                                <div style={{paddingLeft: 16, paddingRight: 16}} key={option}>
-                                    <SelectConfigOption
-                                        fullWidth={true}
-                                        key={option}
-                                        path={path}
-                                        style={selectStyle}
-                                        labelStyle={selectedItemStyle}
-                                        value={getConfigByPath(this.props, path)}
-                                        onChange={this.handleChange}
-                                        floatingLabelText={option}
-                                    >
-                                    {section.options[option].map(([value, label]) => (
-                                            <MenuItem key={value} value={value} primaryText={label} />
-                                    ))}
-                                    </SelectConfigOption>
-                                </div>
-                            );
-                        }
-                    })}
-                </List>
-            ))
-        }</div>);
-    }
+  render() {
+    // if (typeof configSections === 'object') {
+    //   if (Array.isArray(configSections)) {
+    //     console.log ('configSections is an Array');
+    //   } else {
+    //     console.log('configSections is an Object');
+    //   }
+    // } else {
+    //   console.log('configSections is not an Array or Object');
+    // }
+    
+    // const section = configSections[0];
+
+    // if (typeof section === 'object') {
+    //   if (Array.isArray(section)) {
+    //     console.log ('section is an Array');
+    //   } else {
+    //     console.log('section is an Object');
+    //   }
+    // } else {
+    //   console.log('section is not an Array or Object');
+    // }
+    
+    // console.log(Object.keys(section));
+    
+    // const options = section.options;
+
+    // if (typeof options === 'object') {
+    //   if (Array.isArray(options)) {
+    //     console.log ('options is an Array');
+    //   } else {
+    //     console.log('options is an Object');
+    //   }
+    // } else {
+    //   console.log('options is not an Array or Object');
+    // }
+    
+    // console.log(Object.keys(options));
+    
+    // const option = section.options['deviceId'];
+
+    // if (typeof option === 'object') {
+    //   if (Array.isArray(option)) {
+    //     console.log ('option is an Array');
+    //   } else {
+    //     console.log('option is an Object');
+    //   }
+    // } else {
+    //   console.log('option is not an Array or Object');
+    // }
+    
+    // console.log(Object.values(option));
+    
+    // var iterator = option.values();
+    // for (let o of iterator) {
+    //   console.log(o);
+    // }
+    
+    // const option2 = section.options.deviceId;
+
+    // if (typeof option2 === 'object') {
+    //   if (Array.isArray(option2)) {
+    //     console.log ('option2 is an Array');
+    //   } else {
+    //     console.log('option2 is an Object');
+    //   }
+    // } else {
+    //   console.log('option2 is not an Array or Object');
+    // }
+    
+    // console.log(Object.values(option2));
+
+    // iterator = option2.values();
+    // for (let o of iterator) {
+    //   console.log(o);
+    // }
+    
+    // const path = section.path.concat([option]);
+    
+    // if (typeof path === 'object') {
+    //   if (Array.isArray(path)) {
+    //     console.log ('path is an Array');
+    //   } else {
+    //     console.log('path is an Object');
+    //   }
+    // } else {
+    //   console.log('path is not an Array or Object');
+    // }
+    
+    // {section.options[option].map(([value, label]) => (
+    //   console.log('value: ' + value);
+    //         <MenuItem key={value} value={value} primaryText={label} />
+    // ))}
+    
+    return (
+      <div>{
+        configSections.map(section => {
+          if (section.name === 'Constraints') {
+            return (
+            <List key={section.name}>
+              <Subheader key={section.name}>{section.name}</Subheader>
+              {Object.keys(section.options).map(option => {
+                if (option === 'deviceId') {
+                  const path = section.path.concat([option]);
+                  if (typeof section.options[option] === 'boolean') {
+                      return (
+                          <ListItem
+                              key={option}
+                              // path={path}
+                              primaryText={option}
+                              rightToggle={
+                                  <ToggleConfigOption
+                                      onToggle={this.handleToggle}
+                                      path={path}
+                                      toggled={!!getConfigByPath(this.props, path)} />
+                              }
+                          />
+                      );
+                  } else {
+                      return (
+                          <div style={{paddingLeft: 16, paddingRight: 16}} key={option}>
+                              <SelectConfigOption
+                                  fullWidth={true}
+                                  key={option}
+                                  path={path}
+                                  style={selectStyle}
+                                  labelStyle={selectedItemStyle}
+                                  value={getConfigByPath(this.props, path)}
+                                  onChange={this.handleChange}
+                                  floatingLabelText={option}
+                              >
+                              {section.options[option].map(([value, label]) => (
+                                      <MenuItem key={value} value={value} primaryText={label} />
+                              ))}
+                              </SelectConfigOption>
+                          </div>
+                      );
+                  }
+              }})}
+          </List>
+            );
+          }
+          
+        })
+      }</div>
+    );
+    // return (
+    //   <div style={{paddingLeft: 16, paddingRight: 16}}>
+    //     <SelectConfigOption
+    //       fullWidth={true}
+    //       key={option}
+    //       path={path}
+    //       style={selectStyle}
+    //       labelStyle={selectedItemStyle}
+    //       value={getConfigByPath(this.props, path)}
+    //       onChange={this.handleChange}
+    //       floatingLabelText={option}
+    //     >
+        
+    //       {section.options[option].map(([value, label]) => (
+    //         <MenuItem key={value} value={value} primaryText={label} />
+    //       ))}
+          
+    //     </SelectConfigOption>
+    //   </div>
+    // );
+    // -----------------------------------------------------------------------------------------
+    // 
+    // return (
+      // <div>{
+      // configSections.map(section => (
+      //     <List key={section.name}>
+      //         <Subheader key={section.name}>{section.name}</Subheader>
+      //         {Object.keys(section.options).map(option => {
+      //             const path = section.path.concat([option]);
+      //             if (typeof section.options[option] === 'boolean') {
+      //                 return (
+      //                     <ListItem
+      //                         key={option}
+      //                         // path={path}
+      //                         primaryText={option}
+      //                         rightToggle={
+      //                             <ToggleConfigOption
+      //                                 onToggle={this.handleToggle}
+      //                                 path={path}
+      //                                 toggled={!!getConfigByPath(this.props, path)} />
+      //                         }
+      //                     />
+      //                 );
+      //             } else {
+      //                 return (
+      //                     <div style={{paddingLeft: 16, paddingRight: 16}} key={option}>
+      //                         <SelectConfigOption
+      //                             fullWidth={true}
+      //                             key={option}
+      //                             path={path}
+      //                             style={selectStyle}
+      //                             labelStyle={selectedItemStyle}
+      //                             value={getConfigByPath(this.props, path)}
+      //                             onChange={this.handleChange}
+      //                             floatingLabelText={option}
+      //                         >
+      //                         {section.options[option].map(([value, label]) => (
+      //                                 <MenuItem key={value} value={value} primaryText={label} />
+      //                         ))}
+      //                         </SelectConfigOption>
+      //                     </div>
+      //                 );
+      //             }
+      //         })}
+      //     </List>
+      // ))
+      // }</div>
+    // );
+  }
 };
