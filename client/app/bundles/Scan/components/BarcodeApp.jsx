@@ -8,6 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import {Card, CardText} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import TuneIcon from 'material-ui/svg-icons/image/tune';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import FontIcon from 'material-ui/FontIcon';
 
 import Scanner from './Scanner';
 import ScanIcon from './ScanIcon';
@@ -62,6 +64,7 @@ export default class BarcodeApp extends React.Component {
         currentView: 'root',
         config: load("config") || defaultConfig,
         scannedCodes: load('scannedCodes') || [],
+        logged: false,
     };
 
     _handleToggleSettings = () => {
@@ -151,6 +154,26 @@ export default class BarcodeApp extends React.Component {
             persist('scannedCodes', newArray);
         }
     }
+    
+    _handleEdit = (scannedCode) => {
+      console.log("Edit Cage");
+      // $.get('/edit_group_cage_path',
+      //   {
+      //     group_id: group_id,
+      //     cage_id: scannedCode.codeResult.code
+      //   }
+      // );
+    }
+    
+    _handleAdd = (scannedCode) => {
+      console.log("Add Cage");
+      // $.get('/new_group_cage_path',
+      //   {
+      //     group_id: group_id,
+      //     cage_id: scannedCode.codeResult.code
+      //   }
+      // );
+    }
 
     render() {
         return (
@@ -169,10 +192,16 @@ export default class BarcodeApp extends React.Component {
                     iconElementLeft={<IconButton onTouchTap={this._handleToggleSettings}><TuneIcon /></IconButton>}
                     onLeftIconButtonTouchTap={this._handleToggleSettings}
                     />
-                <AppBar
-                    style={{position: 'fixed', bottom: '0px'}}
-                    title="Bottom Bar"
-                    />
+                    
+                <Tabs
+                    tabItemContainerStyle={{position: 'fixed', bottom: '0px'}}
+                    >
+                    <Tab icon={<ScanIcon />} />
+                    <Tab icon={<FontIcon className="fa fa-university" />} />
+                    <Tab icon={<FontIcon className="fa fa-users" />} />
+                    <Tab icon={<FontIcon className="fa fa-flask" />} />
+                </Tabs>
+                    
                 <Dialog
                     style={{paddingTop: '0px'}}
                     bodyStyle={{padding: '0.5rem'}}
@@ -186,13 +215,13 @@ export default class BarcodeApp extends React.Component {
                     modal={true}
                     contentStyle={{width: '95%', maxWidth: '95%', height: '95%', maxHeight: '95%'}}
                     open={this.state.scanning}
-                >
+                  >
                     <Scanner
                         config={this.state.config}
                         onDetected={this._handleResult}
                         onCancel={this._stopScanning} />
                 </Dialog>
-                <div style={{paddingTop: '64px'}}>
+                <div style={{paddingTop: '0.75em'}}>
                     {this.state.currentView === 'root' && this.state.scannedCodes.length === 0 &&
                         <Card style={{margin: '0.5em 0.25em 0em'}}>
                             <CardText>
@@ -204,13 +233,16 @@ export default class BarcodeApp extends React.Component {
                         <ScannedCode
                             key={i}
                             scannedCode={scannedCode}
-                            onDelete={this._handleDelete.bind(this, scannedCode)} />
+                            onDelete={this._handleDelete.bind(this, scannedCode)}
+                            onEdit={this._handleEdit.bind(this, scannedCode)}
+                            onAdd={this._handleAdd.bind(this, scannedCode)}
+                            />
                     ))}
                 </div>
                 <FloatingActionButton
                     secondary={true}
                     onMouseDown={this._startScanning}
-                    style={{position: 'fixed', right: 0, bottom: 0, margin: '0 1em 1em 0'}}
+                    style={{position: 'fixed', right: 0, bottom: 0, margin: '0 1.5em 1.5em 0'}}
                 >
                     <ScanIcon />
                 </FloatingActionButton>

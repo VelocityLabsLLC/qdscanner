@@ -3,6 +3,7 @@ import {Card, CardActions, CardText, CardHeader} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import AddIcon from 'material-ui/svg-icons/content/add';
 import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
 
@@ -61,7 +62,7 @@ const cageExists = scannedCode => {
     }
 };
 
-const ScannedCode = ({scannedCode, onDelete, onEdit}) => {
+const ScannedCode = ({scannedCode, onDelete, onEdit, onAdd}) => {
     return (
         <Card
             style={{margin: '0.5em 0.25em 0em'}}>
@@ -96,6 +97,7 @@ const ScannedCode = ({scannedCode, onDelete, onEdit}) => {
                {renderBox(scannedCode.box)}
             </div>  
           </CardText>
+          
           <CardActions expandable={true}>
             <FlatButton
               label=""
@@ -106,7 +108,13 @@ const ScannedCode = ({scannedCode, onDelete, onEdit}) => {
               disabled={true}
               style={{minWidth: '36px', color: '#aaa'}}
               onClick={onEdit} icon={<EditIcon />} />
+            <FlatButton
+              label=""
+              disabled={true}
+              style={{minWidth: '36px', color: '#aaa'}}
+              onClick={onAdd} icon={<AddIcon />} />
           </CardActions>
+          
         </Card>
     );
 };
