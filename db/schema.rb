@@ -17,12 +17,10 @@ ActiveRecord::Schema.define(version: 20170307184455) do
     t.string   "species"
     t.string   "strain"
     t.integer  "status",     default: 0
-    t.integer  "user_id"
     t.integer  "cage_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.index ["cage_id"], name: "index_animals_on_cage_id"
-    t.index ["user_id"], name: "index_animals_on_user_id"
   end
 
   create_table "cages", force: :cascade do |t|
