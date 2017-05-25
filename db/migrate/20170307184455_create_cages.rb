@@ -19,7 +19,7 @@ class CreateCages < ActiveRecord::Migration[5.0]
       t.string      :emergency_num
       t.string      :comment
       t.references  :group
-      t.references  :user
+      t.references  :user, foreign_key: true
       t.timestamps
     end
   end
