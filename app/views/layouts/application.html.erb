@@ -14,6 +14,8 @@
   </head>
   <body>
     <div class="page">
+      <%= react_component("TopAppBar", props: {controller: controller_name, action: action_name, user: current_user, path: destroy_user_session_path}, prerender: false) %>
+      <%= puts current_user %>
       <% if controller?("pages") and action?("home") and !user_signed_in? %>
       <%# if controller?("pages") and !user_signed_in? %>
       <nav class="navbar navbar-default navbar-static-top navbar-transparent" role="navigation">
@@ -63,6 +65,7 @@
       </div>
       
       <%= yield %>
+      
       <% unless controller?("scanner") %>
         <footer class="footer">
           <div class="container">

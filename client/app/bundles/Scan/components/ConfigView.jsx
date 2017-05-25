@@ -147,107 +147,16 @@ export default class ConfigView extends React.Component {
   }
 
   render() {
-    // if (typeof configSections === 'object') {
-    //   if (Array.isArray(configSections)) {
-    //     console.log ('configSections is an Array');
-    //   } else {
-    //     console.log('configSections is an Object');
-    //   }
-    // } else {
-    //   console.log('configSections is not an Array or Object');
-    // }
-    
-    // const section = configSections[0];
-
-    // if (typeof section === 'object') {
-    //   if (Array.isArray(section)) {
-    //     console.log ('section is an Array');
-    //   } else {
-    //     console.log('section is an Object');
-    //   }
-    // } else {
-    //   console.log('section is not an Array or Object');
-    // }
-    
-    // console.log(Object.keys(section));
-    
-    // const options = section.options;
-
-    // if (typeof options === 'object') {
-    //   if (Array.isArray(options)) {
-    //     console.log ('options is an Array');
-    //   } else {
-    //     console.log('options is an Object');
-    //   }
-    // } else {
-    //   console.log('options is not an Array or Object');
-    // }
-    
-    // console.log(Object.keys(options));
-    
-    // const option = section.options['deviceId'];
-
-    // if (typeof option === 'object') {
-    //   if (Array.isArray(option)) {
-    //     console.log ('option is an Array');
-    //   } else {
-    //     console.log('option is an Object');
-    //   }
-    // } else {
-    //   console.log('option is not an Array or Object');
-    // }
-    
-    // console.log(Object.values(option));
-    
-    // var iterator = option.values();
-    // for (let o of iterator) {
-    //   console.log(o);
-    // }
-    
-    // const option2 = section.options.deviceId;
-
-    // if (typeof option2 === 'object') {
-    //   if (Array.isArray(option2)) {
-    //     console.log ('option2 is an Array');
-    //   } else {
-    //     console.log('option2 is an Object');
-    //   }
-    // } else {
-    //   console.log('option2 is not an Array or Object');
-    // }
-    
-    // console.log(Object.values(option2));
-
-    // iterator = option2.values();
-    // for (let o of iterator) {
-    //   console.log(o);
-    // }
-    
-    // const path = section.path.concat([option]);
-    
-    // if (typeof path === 'object') {
-    //   if (Array.isArray(path)) {
-    //     console.log ('path is an Array');
-    //   } else {
-    //     console.log('path is an Object');
-    //   }
-    // } else {
-    //   console.log('path is not an Array or Object');
-    // }
-    
-    // {section.options[option].map(([value, label]) => (
-    //   console.log('value: ' + value);
-    //         <MenuItem key={value} value={value} primaryText={label} />
-    // ))}
-    
     return (
       <div>{
         configSections.map(section => {
+        // Only display constraints
           if (section.name === 'Constraints') {
             return (
             <List key={section.name}>
               <Subheader key={section.name}>{section.name}</Subheader>
               {Object.keys(section.options).map(option => {
+              // Only display deviceIds to change cameras
                 if (option === 'deviceId') {
                   const path = section.path.concat([option]);
                   if (typeof section.options[option] === 'boolean') {

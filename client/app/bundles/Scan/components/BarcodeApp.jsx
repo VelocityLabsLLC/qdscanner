@@ -64,7 +64,6 @@ export default class BarcodeApp extends React.Component {
         currentView: 'root',
         config: load("config") || defaultConfig,
         scannedCodes: load('scannedCodes') || [],
-        logged: false,
     };
 
     _handleToggleSettings = () => {
@@ -157,7 +156,7 @@ export default class BarcodeApp extends React.Component {
     
     _handleEdit = (scannedCode) => {
       console.log("Edit Cage");
-      // $.get('/edit_group_cage_path',
+      // $.get('/edit_group_cage_path', WRONG should be groups/#/cage/#/edit
       //   {
       //     group_id: group_id,
       //     cage_id: scannedCode.codeResult.code
@@ -167,7 +166,7 @@ export default class BarcodeApp extends React.Component {
     
     _handleAdd = (scannedCode) => {
       console.log("Add Cage");
-      // $.get('/new_group_cage_path',
+      // $.get('/new_group_cage_path', WRONG should be groups/#/cage/new
       //   {
       //     group_id: group_id,
       //     cage_id: scannedCode.codeResult.code
